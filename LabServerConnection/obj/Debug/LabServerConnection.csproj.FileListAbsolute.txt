@@ -1,0 +1,12 @@
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\LabServerConnection.dll.config
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\LabServerConnection.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\LabServerConnection.pdb
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\EntityFramework.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\EntityFramework.xml
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\obj\Debug\LabServerConnection.csprojAssemblyReference.cache
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\obj\Debug\LabServerConnection.csproj.CoreCompileInputs.cache
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\obj\Debug\LabServerConnection.csproj.CopyComplete
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\obj\Debug\LabServerConnection.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\LabServerConnection\obj\Debug\LabServerConnection.pdb

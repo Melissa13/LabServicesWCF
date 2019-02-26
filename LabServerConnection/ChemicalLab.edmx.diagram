@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cca5654d11504ad3bc24799f1991e53f" Name="Diagram1">
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Estudiantes" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.EstudiantesGrupos" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Grupos" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Profesores" Width="1.5" PointX="1.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Simulaciones" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_Grupos_Profesores" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

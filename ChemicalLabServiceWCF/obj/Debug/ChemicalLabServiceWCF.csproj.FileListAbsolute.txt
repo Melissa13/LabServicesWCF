@@ -1,0 +1,15 @@
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\ChemicalLabServiceWCF.dll.config
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\ChemicalLabServiceWCF.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\ChemicalLabServiceWCF.pdb
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\obj\Debug\ChemicalLabServiceWCF.csprojAssemblyReference.cache
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\obj\Debug\ChemicalLabServiceWCF.csproj.CoreCompileInputs.cache
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\obj\Debug\ChemicalLabServiceWCF.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\obj\Debug\ChemicalLabServiceWCF.pdb
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\EntityFramework.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\EntityFramework.SqlServer.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\LabServerConnection.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\LabServerConnection.pdb
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\LabServerConnection.dll.config
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\EntityFramework.xml
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\EntityFramework.SqlServer.xml
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\obj\Debug\ChemicalLabServiceWCF.csproj.CopyComplete

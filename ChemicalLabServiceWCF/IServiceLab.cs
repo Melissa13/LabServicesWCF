@@ -21,6 +21,9 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         List<Estudiantes> ObtenerEstudiantes(int idEstudiantes);
 
+        [OperationContract]
+        string ObtenerPass(int idEstudiantes);
+
         // TODO: Add your service operations here
     }
 

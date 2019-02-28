@@ -20,6 +20,12 @@ namespace ChemicalLabServiceWCF
             return conexionDB.Estudiantes.Where(Estudiantes => Estudiantes.EstudianteID == idEstudiantes || idEstudiantes == -1).ToList();
         }
 
+        public string ObtenerPass(int idEstudiantes)
+        {
+            
+            return conexionDB.Estudiantes.Find(idEstudiantes).EstPassword;
+        }
+
         public bool RegistrarMatricula(int matricula, string password)
         {
             try

@@ -49,5 +49,148 @@ namespace ChemicalLabServiceWCF
 
             return true;
         }
+
+        public bool GenerarReporteEstudiante(List<string> notas)
+        {
+            CrystalReport1 crpt = new CrystalReport1();
+            return true;
+        }
+        
+        //registro de datos
+        public bool RegistrarEsudiante(string id, string name, string lastname, int matricula)
+        {
+            try
+            {
+                var nuevoEstudiante = conexionDB.Estudiantes.Create();
+                //if para verificar aqui
+                nuevoEstudiante.EstudianteID = id;
+                nuevoEstudiante.EstNombre = name;
+                nuevoEstudiante.EstApellido = lastname;
+                nuevoEstudiante.EstMatricula = matricula;
+
+
+                conexionDB.Estudiantes.Add(nuevoEstudiante);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool RegistrarProfesor(string id, string name, string lastname)
+        {
+            try
+            {
+                var nuevoProf = conexionDB.Profesores.Create();
+                //if para verificar aqui
+                nuevoProf.ProfesorId = id;
+                nuevoProf.ProfNombre = name;
+                nuevoProf.ProfApellido = lastname;
+
+
+                conexionDB.Profesores.Add(nuevoProf);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool RegistrarCurso(string name, string idprofesor)
+        {
+            try
+            {
+                //conexionDB.Profesores.Find(idEstudiantes).EstPassword;
+
+                var nuevoCurso = conexionDB.Grupos.Create();
+                //if para verificar aqui
+                nuevoCurso.GrupoNombre = name;
+                nuevoCurso.GrupoProfesor = idprofesor;
+
+
+                conexionDB.Grupos.Add(nuevoCurso);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool RegistrarCursoestudiante(int idCurso, string idEstudiante)
+        {
+            try
+            {
+
+                var nuevoCursoEst = conexionDB.EstudiantesGrupos.Create();
+                //if para verificar aqui
+                nuevoCursoEst.GrupoID = idCurso;
+                nuevoCursoEst.EstudianteID = idEstudiante;
+
+
+                conexionDB.EstudiantesGrupos.Add(nuevoCursoEst);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool RegistrarSimulacion(string name, int fallos, int duracion)
+        {
+            try
+            {
+
+                var nuevoaSimulacion = conexionDB.Simulaciones.Create();
+                //if para verificar aqui
+                nuevoaSimulacion.SimCantFallos = fallos;
+                nuevoaSimulacion.SimDuracion = duracion;
+                nuevoaSimulacion.SimNombre = name;
+
+
+                conexionDB.Simulaciones.Add(nuevoaSimulacion);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool RegistrarSimulacionEst(int idSim, string idEstudiante, string nota)
+        {
+            try
+            {
+
+                var nuevoaSimulacionEst = conexionDB.SimmulacionEstudiante.Create();
+                //if para verificar aqui
+                nuevoaSimulacionEst.EstudianteId = idEstudiante;
+                nuevoaSimulacionEst.SimulacionId = idSim;
+                nuevoaSimulacionEst.Nota = nota;
+
+
+                conexionDB.SimmulacionEstudiante.Add(nuevoaSimulacionEst);
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

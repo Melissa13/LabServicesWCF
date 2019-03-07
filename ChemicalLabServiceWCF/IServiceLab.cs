@@ -24,6 +24,28 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         string ObtenerPass(string idEstudiantes);
 
+        [OperationContract]
+        //string GetData(int value);
+        bool GenerarReporteEstudiante(List<string> notas);
+
+        [OperationContract]
+        bool RegistrarEsudiante(string id, string name,string lastname, int matricula);
+
+        [OperationContract]
+        bool RegistrarProfesor(string id, string name, string lastname);
+
+        [OperationContract]
+        bool RegistrarCurso(string name, string idprofesor);
+
+        [OperationContract]
+        bool RegistrarCursoestudiante(int idCurso, string idEstudiante);
+
+        [OperationContract]
+        bool RegistrarSimulacion(string name, int fallos, int duracion);
+
+        [OperationContract]
+        bool RegistrarSimulacionEst(int idCurso, string idEstudiante, string nota);
+
         // TODO: Add your service operations here
     }
 

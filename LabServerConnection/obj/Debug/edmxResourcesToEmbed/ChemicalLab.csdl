@@ -1,27 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DBCHEMICALLABModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBCHEMICALLABEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Estudiantes" EntityType="DBCHEMICALLABModel.Estudiantes" />
+    <EntitySet Name="EstudiantesGrupos" EntityType="DBCHEMICALLABModel.EstudiantesGrupos" />
+    <EntitySet Name="Grupos" EntityType="DBCHEMICALLABModel.Grupos" />
+    <EntitySet Name="Profesores" EntityType="DBCHEMICALLABModel.Profesores" />
+    <EntitySet Name="SimmulacionEstudiante" EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" />
+    <EntitySet Name="Simulaciones" EntityType="DBCHEMICALLABModel.Simulaciones" />
+    <AssociationSet Name="FK_EstudiantesGrupos_Estudiantes" Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes">
+      <End Role="Estudiantes" EntitySet="Estudiantes" />
+      <End Role="EstudiantesGrupos" EntitySet="EstudiantesGrupos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SimmulacionEstudiante_Estudiantes" Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes">
+      <End Role="Estudiantes" EntitySet="Estudiantes" />
+      <End Role="SimmulacionEstudiante" EntitySet="SimmulacionEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EstudiantesGrupos_Grupos" Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos">
+      <End Role="Grupos" EntitySet="Grupos" />
+      <End Role="EstudiantesGrupos" EntitySet="EstudiantesGrupos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Grupos_Profesores" Association="DBCHEMICALLABModel.FK_Grupos_Profesores">
+      <End Role="Profesores" EntitySet="Profesores" />
+      <End Role="Grupos" EntitySet="Grupos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SimmulacionEstudiante_Simulaciones" Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones">
+      <End Role="Simulaciones" EntitySet="Simulaciones" />
+      <End Role="SimmulacionEstudiante" EntitySet="SimmulacionEstudiante" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Estudiantes">
     <Key>
       <PropertyRef Name="EstudianteID" />
     </Key>
-    <Property Name="EstudianteID" Type="Int64" Nullable="false" />
+    <Property Name="EstudianteID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstTotalNota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="EstudiantesGrupos" Relationship="Self.FK_EstudiantesGrupos_Estudiantes" FromRole="Estudiantes" ToRole="EstudiantesGrupos" />
-    <NavigationProperty Name="SimmulacionEstudiante" Relationship="Self.FK_SimmulacionEstudiante_Estudiantes" FromRole="Estudiantes" ToRole="SimmulacionEstudiante" />
+    <Property Name="EstMatricula" Type="Int32" />
+    <NavigationProperty Name="EstudiantesGrupos" Relationship="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" FromRole="Estudiantes" ToRole="EstudiantesGrupos" />
+    <NavigationProperty Name="SimmulacionEstudiante" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" FromRole="Estudiantes" ToRole="SimmulacionEstudiante" />
   </EntityType>
   <EntityType Name="EstudiantesGrupos">
     <Key>
       <PropertyRef Name="EstGrupoID" />
     </Key>
     <Property Name="EstGrupoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EstudianteID" Type="Int64" />
+    <Property Name="EstudianteID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GrupoID" Type="Int32" />
-    <NavigationProperty Name="Estudiantes" Relationship="Self.FK_EstudiantesGrupos_Estudiantes" FromRole="EstudiantesGrupos" ToRole="Estudiantes" />
-    <NavigationProperty Name="Grupos" Relationship="Self.FK_EstudiantesGrupos_Grupos" FromRole="EstudiantesGrupos" ToRole="Grupos" />
+    <NavigationProperty Name="Estudiantes" Relationship="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" FromRole="EstudiantesGrupos" ToRole="Estudiantes" />
+    <NavigationProperty Name="Grupos" Relationship="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" FromRole="EstudiantesGrupos" ToRole="Grupos" />
   </EntityType>
   <EntityType Name="Grupos">
     <Key>
@@ -30,19 +59,19 @@
     <Property Name="GrupoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="GrupoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NotaPromedio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="GrupoProfesor" Type="Int32" />
-    <NavigationProperty Name="EstudiantesGrupos" Relationship="Self.FK_EstudiantesGrupos_Grupos" FromRole="Grupos" ToRole="EstudiantesGrupos" />
-    <NavigationProperty Name="Profesores" Relationship="Self.FK_Grupos_Profesores" FromRole="Grupos" ToRole="Profesores" />
+    <Property Name="GrupoProfesor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="EstudiantesGrupos" Relationship="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" FromRole="Grupos" ToRole="EstudiantesGrupos" />
+    <NavigationProperty Name="Profesores" Relationship="DBCHEMICALLABModel.FK_Grupos_Profesores" FromRole="Grupos" ToRole="Profesores" />
   </EntityType>
   <EntityType Name="Profesores">
     <Key>
       <PropertyRef Name="ProfesorId" />
     </Key>
-    <Property Name="ProfesorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfesorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Grupos" Relationship="Self.FK_Grupos_Profesores" FromRole="Profesores" ToRole="Grupos" />
+    <NavigationProperty Name="Grupos" Relationship="DBCHEMICALLABModel.FK_Grupos_Profesores" FromRole="Profesores" ToRole="Grupos" />
   </EntityType>
   <EntityType Name="SimmulacionEstudiante">
     <Key>
@@ -50,10 +79,11 @@
     </Key>
     <Property Name="SimEstId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SimulacionId" Type="Int32" />
-    <Property Name="EstudianteId" Type="Int64" />
+    <Property Name="EstudianteId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Nota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Estudiantes" Relationship="Self.FK_SimmulacionEstudiante_Estudiantes" FromRole="SimmulacionEstudiante" ToRole="Estudiantes" />
-    <NavigationProperty Name="Simulaciones" Relationship="Self.FK_SimmulacionEstudiante_Simulaciones" FromRole="SimmulacionEstudiante" ToRole="Simulaciones" />
+    <Property Name="desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Estudiantes" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" FromRole="SimmulacionEstudiante" ToRole="Estudiantes" />
+    <NavigationProperty Name="Simulaciones" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" FromRole="SimmulacionEstudiante" ToRole="Simulaciones" />
   </EntityType>
   <EntityType Name="Simulaciones">
     <Key>
@@ -63,11 +93,11 @@
     <Property Name="SimNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SimCantFallos" Type="Int32" />
     <Property Name="SimDuracion" Type="Int64" />
-    <NavigationProperty Name="SimmulacionEstudiante" Relationship="Self.FK_SimmulacionEstudiante_Simulaciones" FromRole="Simulaciones" ToRole="SimmulacionEstudiante" />
+    <NavigationProperty Name="SimmulacionEstudiante" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" FromRole="Simulaciones" ToRole="SimmulacionEstudiante" />
   </EntityType>
   <Association Name="FK_EstudiantesGrupos_Estudiantes">
-    <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="0..1" />
-    <End Role="EstudiantesGrupos" Type="Self.EstudiantesGrupos" Multiplicity="*" />
+    <End Type="DBCHEMICALLABModel.Estudiantes" Role="Estudiantes" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.EstudiantesGrupos" Role="EstudiantesGrupos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estudiantes">
         <PropertyRef Name="EstudianteID" />
@@ -78,8 +108,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SimmulacionEstudiante_Estudiantes">
-    <End Role="Estudiantes" Type="Self.Estudiantes" Multiplicity="0..1" />
-    <End Role="SimmulacionEstudiante" Type="Self.SimmulacionEstudiante" Multiplicity="*" />
+    <End Type="DBCHEMICALLABModel.Estudiantes" Role="Estudiantes" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.SimmulacionEstudiante" Role="SimmulacionEstudiante" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Estudiantes">
         <PropertyRef Name="EstudianteID" />
@@ -90,8 +120,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_EstudiantesGrupos_Grupos">
-    <End Role="Grupos" Type="Self.Grupos" Multiplicity="0..1" />
-    <End Role="EstudiantesGrupos" Type="Self.EstudiantesGrupos" Multiplicity="*" />
+    <End Type="DBCHEMICALLABModel.Grupos" Role="Grupos" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.EstudiantesGrupos" Role="EstudiantesGrupos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Grupos">
         <PropertyRef Name="GrupoID" />
@@ -102,8 +132,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Grupos_Profesores">
-    <End Role="Profesores" Type="Self.Profesores" Multiplicity="0..1" />
-    <End Role="Grupos" Type="Self.Grupos" Multiplicity="*" />
+    <End Type="DBCHEMICALLABModel.Profesores" Role="Profesores" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.Grupos" Role="Grupos" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Profesores">
         <PropertyRef Name="ProfesorId" />
@@ -114,8 +144,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SimmulacionEstudiante_Simulaciones">
-    <End Role="Simulaciones" Type="Self.Simulaciones" Multiplicity="0..1" />
-    <End Role="SimmulacionEstudiante" Type="Self.SimmulacionEstudiante" Multiplicity="*" />
+    <End Type="DBCHEMICALLABModel.Simulaciones" Role="Simulaciones" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.SimmulacionEstudiante" Role="SimmulacionEstudiante" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Simulaciones">
         <PropertyRef Name="SimID" />
@@ -125,32 +155,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DBCHEMICALLABEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Estudiantes" EntityType="Self.Estudiantes" />
-    <EntitySet Name="EstudiantesGrupos" EntityType="Self.EstudiantesGrupos" />
-    <EntitySet Name="Grupos" EntityType="Self.Grupos" />
-    <EntitySet Name="Profesores" EntityType="Self.Profesores" />
-    <EntitySet Name="SimmulacionEstudiante" EntityType="Self.SimmulacionEstudiante" />
-    <EntitySet Name="Simulaciones" EntityType="Self.Simulaciones" />
-    <AssociationSet Name="FK_EstudiantesGrupos_Estudiantes" Association="Self.FK_EstudiantesGrupos_Estudiantes">
-      <End Role="Estudiantes" EntitySet="Estudiantes" />
-      <End Role="EstudiantesGrupos" EntitySet="EstudiantesGrupos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SimmulacionEstudiante_Estudiantes" Association="Self.FK_SimmulacionEstudiante_Estudiantes">
-      <End Role="Estudiantes" EntitySet="Estudiantes" />
-      <End Role="SimmulacionEstudiante" EntitySet="SimmulacionEstudiante" />
-    </AssociationSet>
-    <AssociationSet Name="FK_EstudiantesGrupos_Grupos" Association="Self.FK_EstudiantesGrupos_Grupos">
-      <End Role="Grupos" EntitySet="Grupos" />
-      <End Role="EstudiantesGrupos" EntitySet="EstudiantesGrupos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Grupos_Profesores" Association="Self.FK_Grupos_Profesores">
-      <End Role="Profesores" EntitySet="Profesores" />
-      <End Role="Grupos" EntitySet="Grupos" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SimmulacionEstudiante_Simulaciones" Association="Self.FK_SimmulacionEstudiante_Simulaciones">
-      <End Role="Simulaciones" EntitySet="Simulaciones" />
-      <End Role="SimmulacionEstudiante" EntitySet="SimmulacionEstudiante" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

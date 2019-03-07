@@ -15,7 +15,7 @@ namespace LabServerConnection
     public partial class EstudiantesGrupos
     {
         public int EstGrupoID { get; set; }
-        public Nullable<long> EstudianteID { get; set; }
+        public string EstudianteID { get; set; }
         public Nullable<int> GrupoID { get; set; }
     
         public virtual Estudiantes Estudiantes { get; set; }

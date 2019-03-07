@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cca5654d11504ad3bc24799f1991e53f" Name="Diagram1">
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Estudiantes" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.EstudiantesGrupos" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Grupos" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Profesores" Width="1.5" PointX="1.5" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Simulaciones" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_Grupos_Profesores" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Estudiantes" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.EstudiantesGrupos" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Grupos" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Profesores" Width="1.5" PointX="1.5" PointY="10.75" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" Width="1.5" PointX="3" PointY="3.5" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Simulaciones" Width="1.5" PointX="0.75" PointY="13.75" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_Grupos_Profesores" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

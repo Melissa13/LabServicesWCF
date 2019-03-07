@@ -4,19 +4,20 @@
     <Key>
       <PropertyRef Name="EstudianteID" />
     </Key>
-    <Property Name="EstudianteID" Type="bigint" Nullable="false" />
+    <Property Name="EstudianteID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="EstNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="EstApellido" Type="nvarchar" MaxLength="50" />
     <Property Name="EstPassword" Type="nvarchar" MaxLength="50" />
     <Property Name="EstTotalNota" Type="nvarchar" MaxLength="50" />
     <Property Name="EstReporte" Type="nvarchar" MaxLength="50" />
+    <Property Name="EstMatricula" Type="int" />
   </EntityType>
   <EntityType Name="EstudiantesGrupos">
     <Key>
       <PropertyRef Name="EstGrupoID" />
     </Key>
     <Property Name="EstGrupoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EstudianteID" Type="bigint" />
+    <Property Name="EstudianteID" Type="nvarchar" MaxLength="50" />
     <Property Name="GrupoID" Type="int" />
   </EntityType>
   <EntityType Name="Grupos">
@@ -26,13 +27,13 @@
     <Property Name="GrupoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="GrupoNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="NotaPromedio" Type="nvarchar" MaxLength="50" />
-    <Property Name="GrupoProfesor" Type="int" />
+    <Property Name="GrupoProfesor" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Profesores">
     <Key>
       <PropertyRef Name="ProfesorId" />
     </Key>
-    <Property Name="ProfesorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfesorId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ProfNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="ProfApellido" Type="nvarchar" MaxLength="50" />
     <Property Name="ProfPassword" Type="nvarchar" MaxLength="50" />
@@ -43,8 +44,9 @@
     </Key>
     <Property Name="SimEstId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SimulacionId" Type="int" />
-    <Property Name="EstudianteId" Type="bigint" />
+    <Property Name="EstudianteId" Type="nvarchar" MaxLength="50" />
     <Property Name="Nota" Type="nvarchar" MaxLength="50" />
+    <Property Name="desc" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Simulaciones">
     <Key>

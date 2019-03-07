@@ -16,13 +16,13 @@ namespace ChemicalLabServiceWCF
 
         [OperationContract]
         //string GetData(int value);
-        bool RegistrarMatricula(int matricula, string password);
+        bool RegistrarMatricula(string matricula, string password);
 
         [OperationContract]
-        List<Estudiantes> ObtenerEstudiantes(int idEstudiantes);
+        List<Estudiantes> ObtenerEstudiantes(string idEstudiantes);
 
         [OperationContract]
-        string ObtenerPass(int idEstudiantes);
+        string ObtenerPass(string idEstudiantes);
 
         // TODO: Add your service operations here
     }

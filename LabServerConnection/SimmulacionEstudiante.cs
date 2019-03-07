@@ -16,8 +16,9 @@ namespace LabServerConnection
     {
         public long SimEstId { get; set; }
         public Nullable<int> SimulacionId { get; set; }
-        public Nullable<long> EstudianteId { get; set; }
+        public string EstudianteId { get; set; }
         public string Nota { get; set; }
+        public string desc { get; set; }
     
         public virtual Estudiantes Estudiantes { get; set; }
         public virtual Simulaciones Simulaciones { get; set; }

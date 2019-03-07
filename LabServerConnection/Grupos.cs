@@ -23,7 +23,7 @@ namespace LabServerConnection
         public int GrupoID { get; set; }
         public string GrupoNombre { get; set; }
         public string NotaPromedio { get; set; }
-        public Nullable<int> GrupoProfesor { get; set; }
+        public string GrupoProfesor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EstudiantesGrupos> EstudiantesGrupos { get; set; }

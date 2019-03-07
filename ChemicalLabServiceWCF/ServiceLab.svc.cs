@@ -15,18 +15,20 @@ namespace ChemicalLabServiceWCF
     {
         DBCHEMICALLABEntities conexionDB = new DBCHEMICALLABEntities();
 
-        public List<Estudiantes> ObtenerEstudiantes(int idEstudiantes)
+        public List<Estudiantes> ObtenerEstudiantes(string idEstudiantes)
         {
-            return conexionDB.Estudiantes.Where(Estudiantes => Estudiantes.EstudianteID == idEstudiantes || idEstudiantes == -1).ToList();
+            List<Estudiantes> vacio = new List<Estudiantes>();
+            //return conexionDB.Estudiantes.Where(Estudiantes => Estudiantes.EstudianteID == idEstudiantes || idEstudiantes == -1).ToList();
+            return vacio;
         }
 
-        public string ObtenerPass(int idEstudiantes)
+        public string ObtenerPass(string idEstudiantes)
         {
             
             return conexionDB.Estudiantes.Find(idEstudiantes).EstPassword;
         }
 
-        public bool RegistrarMatricula(int matricula, string password)
+        public bool RegistrarMatricula(string matricula, string password)
         {
             try
             {

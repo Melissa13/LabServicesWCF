@@ -20,7 +20,7 @@ namespace LabServerConnection
             this.Grupos = new HashSet<Grupos>();
         }
     
-        public int ProfesorId { get; set; }
+        public string ProfesorId { get; set; }
         public string ProfNombre { get; set; }
         public string ProfApellido { get; set; }
         public string ProfPassword { get; set; }

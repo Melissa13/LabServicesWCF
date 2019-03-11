@@ -6,6 +6,10 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using LabServerConnection;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+
+
 
 namespace ChemicalLabServiceWCF
 {
@@ -50,9 +54,40 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool GenerarReporteEstudiante(List<string> notas)
+        public bool GenerarReporteEstudiante(string estudianteID)
         {
             CrystalReport1 crpt = new CrystalReport1();
+            crpt.Load(@"C:\CrystalReport2.rpt");
+
+            //crpt.SetDataSource(datatablesource);
+            crpt.SetParameterValue("nombre", "Melissa");
+
+            try
+            {
+                CrystalDecisions.Shared.ExportOptions rptExportOption = crpt.ExportOptions;
+                DiskFileDestinationOptions rptFileDestOption = new DiskFileDestinationOptions();
+                string reportFileName = @"C:\SampleReport.pdf";
+                rptFileDestOption.DiskFileName = reportFileName;
+                
+                {
+                    rptExportOption.ExportDestinationType = ExportDestinationType.DiskFile;
+                    //if we want to generate the report as PDF, change the ExportFormatType as "ExportFormatType.PortableDocFormat"
+                    //if we want to generate the report as Excel, change the ExportFormatType as "ExportFormatType.Excel"
+                    rptExportOption.ExportFormatType = ExportFormatType.PortableDocFormat;
+                    rptExportOption.ExportDestinationOptions = rptFileDestOption;
+                    PdfRtfWordFormatOptions rptFormatOption = new PdfRtfWordFormatOptions();
+                    rptExportOption.ExportFormatOptions = rptFormatOption;
+                }
+
+                crpt.Export();
+
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+           
+           
             return true;
         }
         

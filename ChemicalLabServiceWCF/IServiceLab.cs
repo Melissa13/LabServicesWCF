@@ -26,7 +26,7 @@ namespace ChemicalLabServiceWCF
 
         [OperationContract]
         //string GetData(int value);
-        bool GenerarReporteEstudiante(List<string> notas);
+        bool GenerarReporteEstudiante(string estudianteID);
 
         [OperationContract]
         bool RegistrarEsudiante(string id, string name,string lastname, int matricula);

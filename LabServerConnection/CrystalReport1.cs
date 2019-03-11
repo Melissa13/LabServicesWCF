@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChemicalLabServiceWCF {
+namespace LabServerConnection {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -41,7 +41,7 @@ namespace ChemicalLabServiceWCF {
         
         public override string FullResourceName {
             get {
-                return "ChemicalLabServiceWCF.CrystalReport1.rpt";
+                return "LabServerConnection.CrystalReport1.rpt";
             }
             set {
                 // Do nothing
@@ -85,14 +85,6 @@ namespace ChemicalLabServiceWCF {
         public CrystalDecisions.CrystalReports.Engine.Section Section5 {
             get {
                 return this.ReportDefinition.Sections[4];
-            }
-        }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_nombre {
-            get {
-                return this.DataDefinition.ParameterFields[0];
             }
         }
     }

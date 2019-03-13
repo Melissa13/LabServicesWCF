@@ -54,19 +54,21 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool GenerarReporteEstudiante(string estudianteID)
+        public string GenerarReporteEstudiante(string estudianteID)
         {
+            string data = "LLega a la plataforma";
             CrystalReport1 crpt = new CrystalReport1();
-            crpt.Load(@"C:\CrystalReport2.rpt");
+            crpt.Load(@"C:\temporal\CrystalReport2.rpt");
 
             //crpt.SetDataSource(datatablesource);
             crpt.SetParameterValue("nombre", "Melissa");
 
             try
             {
+                data = "entra al try";
                 CrystalDecisions.Shared.ExportOptions rptExportOption = crpt.ExportOptions;
                 DiskFileDestinationOptions rptFileDestOption = new DiskFileDestinationOptions();
-                string reportFileName = @"C:\SampleReport.pdf";
+                string reportFileName = @"C:\temporal\SampleReport.pdf";
                 rptFileDestOption.DiskFileName = reportFileName;
                 
                 {
@@ -84,11 +86,11 @@ namespace ChemicalLabServiceWCF
             }
             catch(Exception ex)
             {
-                return false;
+                return data;
             }
            
            
-            return true;
+            return data;
         }
         
         //registro de datos

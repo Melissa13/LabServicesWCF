@@ -95,7 +95,7 @@ namespace ChemicalLabServiceWCF
             //crpt.SetDataSource(datatablesource);
             crpt.SetParameterValue("nombre", estudiante.EstNombre);
             crpt.SetParameterValue("apellido", estudiante.EstApellido);
-            crpt.SetParameterValue("matricula", estudiante.EstMatricula);
+            crpt.SetParameterValue("matricula", estudiante.EstudianteID);
             crpt.SetParameterValue("nota1", nota1);
             crpt.SetParameterValue("nota2", nota2);
             crpt.SetParameterValue("nota3", nota3);

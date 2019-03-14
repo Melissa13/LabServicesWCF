@@ -59,9 +59,48 @@ namespace ChemicalLabServiceWCF
             string data = "LLega a la plataforma";
             CrystalReport1 crpt = new CrystalReport1();
             crpt.Load(@"C:\temporal\CrystalReport2.rpt");
+            Estudiantes estudiante = conexionDB.Estudiantes.Find(estudianteID);
+            List<SimmulacionEstudiante> notas = new List<SimmulacionEstudiante>();
+            notas= conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == estudianteID).ToList();
+
+            string nota1 = "sin datos";
+            string nota2 = "sin datos";
+            string nota3 = "sin datos";
+            string nota4 = "sin datos";
+            string nota5 = "sin datos";
+            foreach (SimmulacionEstudiante a in notas)
+            {
+                if (a.SimulacionId == 2)
+                {
+                    nota1 = a.Nota;
+                }
+                if (a.SimulacionId == 1)
+                {
+                    nota2 = a.Nota;
+                }
+                if (a.SimulacionId == 3)
+                {
+                    nota3 = a.Nota;
+                }
+                if (a.SimulacionId == 4)
+                {
+                    nota4 = a.Nota;
+                }
+                if (a.SimulacionId == 5)
+                {
+                    nota5 = a.Nota;
+                }
+            }
 
             //crpt.SetDataSource(datatablesource);
-            crpt.SetParameterValue("nombre", "Melissa");
+            crpt.SetParameterValue("nombre", estudiante.EstNombre);
+            crpt.SetParameterValue("apellido", estudiante.EstApellido);
+            crpt.SetParameterValue("matricula", estudiante.EstMatricula);
+            crpt.SetParameterValue("nota1", nota1);
+            crpt.SetParameterValue("nota2", nota2);
+            crpt.SetParameterValue("nota3", nota3);
+            crpt.SetParameterValue("nota4", nota4);
+            crpt.SetParameterValue("nota5", nota5);
 
             try
             {

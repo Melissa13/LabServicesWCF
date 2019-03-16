@@ -46,6 +46,18 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         bool RegistrarSimulacionEst(int idCurso, string idEstudiante, string nota);
 
+        [OperationContract]
+        bool verificarEstudiante(string idEstudiantes);
+
+        [OperationContract]
+        bool verificarProfesor(string idprofesor);
+
+        [OperationContract]
+        bool GuardarCambioDinamicos(string[] idprofesor);
+
+        [OperationContract]
+        string[] BuscarDatosD(string[] datos);
+
         // TODO: Add your service operations here
     }
 

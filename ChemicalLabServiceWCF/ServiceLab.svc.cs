@@ -268,5 +268,36 @@ namespace ChemicalLabServiceWCF
             }
             return true;
         }
+        
+        public bool verificarEstudiante(string idEstudiantes)
+        {
+            Estudiantes estudiante = conexionDB.Estudiantes.Find(idEstudiantes);
+            if (estudiante == null)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+        
+        public bool verificarProfesor(string idprofesor)
+        {
+            Profesores profesor = conexionDB.Profesores.Find(idprofesor);
+            if (profesor == null)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+        
+        public bool GuardarCambioDinamicos(string[] idprofesor)
+        {
+            return true;
+        }
+        
+        public string[] BuscarDatosD(string[] datos)
+        {
+            string[] esto = new string[datos.Length];
+            return esto;
+        }
     }
 }

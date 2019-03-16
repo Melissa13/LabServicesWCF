@@ -25,6 +25,7 @@ namespace LabServerConnection
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Datosdinamicos> Datosdinamicos { get; set; }
         public virtual DbSet<Estudiantes> Estudiantes { get; set; }
         public virtual DbSet<EstudiantesGrupos> EstudiantesGrupos { get; set; }
         public virtual DbSet<Grupos> Grupos { get; set; }

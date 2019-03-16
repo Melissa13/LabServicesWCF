@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="DBCHEMICALLABModelStoreContainer" CdmEntityContainer="DBCHEMICALLABEntities">
+    <EntitySetMapping Name="Datosdinamicos">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Datosdinamicos">
+        <MappingFragment StoreEntitySet="Datosdinamicos">
+          <ScalarProperty Name="DataInt" ColumnName="DataInt" />
+          <ScalarProperty Name="Datastring" ColumnName="Datastring" />
+          <ScalarProperty Name="simulacionID" ColumnName="simulacionID" />
+          <ScalarProperty Name="NombreID" ColumnName="NombreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Estudiantes">
       <EntityTypeMapping TypeName="DBCHEMICALLABModel.Estudiantes">
         <MappingFragment StoreEntitySet="Estudiantes">

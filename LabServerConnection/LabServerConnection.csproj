@@ -75,6 +75,9 @@
       <DependentUpon>CrystalReport1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Datosdinamicos.cs">
+      <DependentUpon>ChemicalLab.tt</DependentUpon>
+    </Compile>
     <Compile Include="Estudiantes.cs">
       <DependentUpon>ChemicalLab.tt</DependentUpon>
     </Compile>

@@ -17,6 +17,7 @@ namespace LabServerConnection
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Simulaciones()
         {
+            this.Datosdinamicos = new HashSet<Datosdinamicos>();
             this.SimmulacionEstudiante = new HashSet<SimmulacionEstudiante>();
         }
     
@@ -25,6 +26,8 @@ namespace LabServerConnection
         public Nullable<int> SimCantFallos { get; set; }
         public Nullable<long> SimDuracion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Datosdinamicos> Datosdinamicos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SimmulacionEstudiante> SimmulacionEstudiante { get; set; }
     }

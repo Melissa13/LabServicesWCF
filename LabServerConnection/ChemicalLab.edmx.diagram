@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cca5654d11504ad3bc24799f1991e53f" Name="Diagram1">
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Estudiantes" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.EstudiantesGrupos" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Grupos" Width="1.5" PointX="0.75" PointY="7.625" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Profesores" Width="1.5" PointX="1.5" PointY="10.75" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" Width="1.5" PointX="3" PointY="3.5" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Simulaciones" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Datosdinamicos" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Estudiantes" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.EstudiantesGrupos" Width="1.5" PointX="10.25" PointY="4.5" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Grupos" Width="1.5" PointX="8" PointY="0.875" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Profesores" Width="1.5" PointX="5.75" PointY="1" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" Width="1.5" PointX="3" PointY="2.5" />
+        <EntityTypeShape EntityType="DBCHEMICALLABModel.Simulaciones" Width="1.5" PointX="0.75" PointY="2.5" />
+        <AssociationConnector Association="DBCHEMICALLABModel.FK_Datosdinamicos_Simulaciones" />
         <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" />
         <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" />
         <AssociationConnector Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Grupos" />
         <AssociationConnector Association="DBCHEMICALLABModel.FK_Grupos_Profesores" />
         <AssociationConnector Association="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" />
-        <EntityTypeShape EntityType="DBCHEMICALLABModel.Datosdinamicos" Width="1.5" PointX="3" PointY="13.875" />
-        <AssociationConnector Association="DBCHEMICALLABModel.FK_Datosdinamicos_Simulaciones" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

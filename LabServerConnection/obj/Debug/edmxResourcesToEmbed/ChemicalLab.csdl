@@ -1,12 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="DBCHEMICALLABModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DBCHEMICALLABEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Datosdinamicos" EntityType="DBCHEMICALLABModel.Datosdinamicos" />
     <EntitySet Name="Estudiantes" EntityType="DBCHEMICALLABModel.Estudiantes" />
     <EntitySet Name="EstudiantesGrupos" EntityType="DBCHEMICALLABModel.EstudiantesGrupos" />
     <EntitySet Name="Grupos" EntityType="DBCHEMICALLABModel.Grupos" />
     <EntitySet Name="Profesores" EntityType="DBCHEMICALLABModel.Profesores" />
     <EntitySet Name="SimmulacionEstudiante" EntityType="DBCHEMICALLABModel.SimmulacionEstudiante" />
     <EntitySet Name="Simulaciones" EntityType="DBCHEMICALLABModel.Simulaciones" />
+    <AssociationSet Name="FK_Datosdinamicos_Simulaciones" Association="DBCHEMICALLABModel.FK_Datosdinamicos_Simulaciones">
+      <End Role="Simulaciones" EntitySet="Simulaciones" />
+      <End Role="Datosdinamicos" EntitySet="Datosdinamicos" />
+    </AssociationSet>
     <AssociationSet Name="FK_EstudiantesGrupos_Estudiantes" Association="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes">
       <End Role="Estudiantes" EntitySet="Estudiantes" />
       <End Role="EstudiantesGrupos" EntitySet="EstudiantesGrupos" />
@@ -28,6 +33,16 @@
       <End Role="SimmulacionEstudiante" EntitySet="SimmulacionEstudiante" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Datosdinamicos">
+    <Key>
+      <PropertyRef Name="NombreID" />
+    </Key>
+    <Property Name="NombreID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="simulacionID" Type="Int32" />
+    <Property Name="Datastring" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DataInt" Type="Int64" />
+    <NavigationProperty Name="Simulaciones" Relationship="DBCHEMICALLABModel.FK_Datosdinamicos_Simulaciones" FromRole="Datosdinamicos" ToRole="Simulaciones" />
+  </EntityType>
   <EntityType Name="Estudiantes">
     <Key>
       <PropertyRef Name="EstudianteID" />
@@ -93,8 +108,21 @@
     <Property Name="SimNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SimCantFallos" Type="Int32" />
     <Property Name="SimDuracion" Type="Int64" />
+    <NavigationProperty Name="Datosdinamicos" Relationship="DBCHEMICALLABModel.FK_Datosdinamicos_Simulaciones" FromRole="Simulaciones" ToRole="Datosdinamicos" />
     <NavigationProperty Name="SimmulacionEstudiante" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" FromRole="Simulaciones" ToRole="SimmulacionEstudiante" />
   </EntityType>
+  <Association Name="FK_Datosdinamicos_Simulaciones">
+    <End Type="DBCHEMICALLABModel.Simulaciones" Role="Simulaciones" Multiplicity="0..1" />
+    <End Type="DBCHEMICALLABModel.Datosdinamicos" Role="Datosdinamicos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Simulaciones">
+        <PropertyRef Name="SimID" />
+      </Principal>
+      <Dependent Role="Datosdinamicos">
+        <PropertyRef Name="simulacionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EstudiantesGrupos_Estudiantes">
     <End Type="DBCHEMICALLABModel.Estudiantes" Role="Estudiantes" Multiplicity="0..1" />
     <End Type="DBCHEMICALLABModel.EstudiantesGrupos" Role="EstudiantesGrupos" Multiplicity="*" />

@@ -56,6 +56,7 @@
     <EntitySetMapping Name="SimmulacionEstudiante">
       <EntityTypeMapping TypeName="DBCHEMICALLABModel.SimmulacionEstudiante">
         <MappingFragment StoreEntitySet="SimmulacionEstudiante">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
           <ScalarProperty Name="desc" ColumnName="desc" />
           <ScalarProperty Name="Nota" ColumnName="Nota" />
           <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />

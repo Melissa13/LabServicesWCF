@@ -19,6 +19,7 @@ namespace LabServerConnection
         public string EstudianteId { get; set; }
         public string Nota { get; set; }
         public string desc { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
     
         public virtual Estudiantes Estudiantes { get; set; }
         public virtual Simulaciones Simulaciones { get; set; }

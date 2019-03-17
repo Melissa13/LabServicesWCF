@@ -56,6 +56,7 @@
     <Property Name="EstudianteId" Type="nvarchar" MaxLength="50" />
     <Property Name="Nota" Type="nvarchar" MaxLength="50" />
     <Property Name="desc" Type="nvarchar" MaxLength="50" />
+    <Property Name="fecha" Type="datetime" />
   </EntityType>
   <EntityType Name="Simulaciones">
     <Key>

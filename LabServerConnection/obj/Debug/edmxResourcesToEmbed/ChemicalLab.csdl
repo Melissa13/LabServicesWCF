@@ -97,6 +97,7 @@
     <Property Name="EstudianteId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Nota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fecha" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Estudiantes" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" FromRole="SimmulacionEstudiante" ToRole="Estudiantes" />
     <NavigationProperty Name="Simulaciones" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" FromRole="SimmulacionEstudiante" ToRole="Simulaciones" />
   </EntityType>

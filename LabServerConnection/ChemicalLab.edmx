@@ -61,6 +61,7 @@
           <Property Name="EstudianteId" Type="nvarchar" MaxLength="50" />
           <Property Name="Nota" Type="nvarchar" MaxLength="50" />
           <Property Name="desc" Type="nvarchar" MaxLength="50" />
+          <Property Name="fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="Simulaciones">
           <Key>
@@ -277,6 +278,7 @@
           <Property Name="EstudianteId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Nota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="desc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Estudiantes" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" FromRole="SimmulacionEstudiante" ToRole="Estudiantes" />
           <NavigationProperty Name="Simulaciones" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Simulaciones" FromRole="SimmulacionEstudiante" ToRole="Simulaciones" />
         </EntityType>
@@ -424,6 +426,7 @@
           <EntitySetMapping Name="SimmulacionEstudiante">
             <EntityTypeMapping TypeName="DBCHEMICALLABModel.SimmulacionEstudiante">
               <MappingFragment StoreEntitySet="SimmulacionEstudiante">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="desc" ColumnName="desc" />
                 <ScalarProperty Name="Nota" ColumnName="Nota" />
                 <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />

@@ -70,11 +70,11 @@ namespace ChemicalLabServiceWCF
             string nota5 = "sin datos";
             foreach (SimmulacionEstudiante a in notas)
             {
-                if (a.SimulacionId == 2)
+                if (a.SimulacionId == 1)
                 {
                     nota1 = a.Nota;
                 }
-                if (a.SimulacionId == 1)
+                if (a.SimulacionId == 2)
                 {
                     nota2 = a.Nota;
                 }
@@ -246,7 +246,7 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool RegistrarSimulacionEst(int idSim, string idEstudiante, string nota)
+        public bool RegistrarSimulacionEst(string NombreSim, string idEstudiante, string nota)
         {
             try
             {
@@ -254,9 +254,10 @@ namespace ChemicalLabServiceWCF
                 var nuevoaSimulacionEst = conexionDB.SimmulacionEstudiante.Create();
                 //if para verificar aqui
                 nuevoaSimulacionEst.EstudianteId = idEstudiante;
-                nuevoaSimulacionEst.SimulacionId = idSim;
+                nuevoaSimulacionEst.SimulacionId = conexionDB.Simulaciones.Single(s => s.SimNombre == NombreSim).SimID;
                 nuevoaSimulacionEst.Nota = nota;
-
+                System.DateTime dateTimeVariable = System.DateTime.Now;
+                nuevoaSimulacionEst.fecha = dateTimeVariable;
 
                 conexionDB.SimmulacionEstudiante.Add(nuevoaSimulacionEst);
                 //guardar en la base de datos
@@ -298,6 +299,63 @@ namespace ChemicalLabServiceWCF
         {
             string[] esto = new string[datos.Length];
             return esto;
+        }
+
+        public string[] devolverNotasEst(string idEstudiantes)
+        {
+
+            string[] simulaciones = new string[5] {"Nomenclatura", "Balanceo", "Estequiometria", "Tabla Periodica", "Conversion" };
+            string[] esto = new string[5];
+            for(int i = 0; i < esto.Length; i++)
+            {
+                esto[i] = "Null";
+            }
+
+            try
+            {
+                for (int i = 0; i < esto.Length; i++)
+                {
+                    List<SimmulacionEstudiante> notas = new List<SimmulacionEstudiante>();
+                    string temp = simulaciones[i];
+                    Simulaciones sim = conexionDB.Simulaciones.Single(s => s.SimNombre == temp);
+
+                    if (conexionDB.SimmulacionEstudiante.Any(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID))
+                    {
+                        notas = conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID).ToList();
+                        esto[i] = notas.OrderBy(n => n.fecha).First().Nota;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return esto;
+            }
+
+            return esto;
+        }
+
+        public bool updateNota(string NombreSim, string idEstudiante, string nota, int id)
+        {
+            try
+            {
+
+                var nuevoaSimulacionEst = conexionDB.SimmulacionEstudiante.Single(esto => esto.SimEstId == id);
+                //if para verificar aqui
+                //nuevoaSimulacionEst.EstudianteId = idEstudiante;
+                //nuevoaSimulacionEst.SimulacionId = conexionDB.Simulaciones.Single(s => s.SimNombre == NombreSim).SimID;
+                //nuevoaSimulacionEst.Nota = nota;
+                System.DateTime dateTimeVariable = System.DateTime.Now;
+                nuevoaSimulacionEst.fecha = dateTimeVariable;
+                
+                //guardar en la base de datos
+                conexionDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

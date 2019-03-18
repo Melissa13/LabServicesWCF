@@ -468,6 +468,7 @@ namespace ChemicalLabServiceWCF
                 if (users[0].email != null) {
                     //Console.WriteLine(users[0].fullname);
                     RegistrarEsudiante(idEstudiante, users[0].firstname, users[0].lastname, "no tiene");
+                    RegistrarCursoestudiante(1, idEstudiante);
                 }
                     
 

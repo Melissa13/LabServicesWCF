@@ -359,15 +359,79 @@ namespace ChemicalLabServiceWCF
             else { return true; }
         }
         
-        public bool GuardarCambioDinamicos(string[] idprofesor)
+        public bool GuardarCambioDinamicos(string simulacion, string[] dato, int dato2, string nivel, string[] nombreData)
         {
+            try
+            {
+                for (int i = 0; i < nombreData.Length; i++)
+                {
+                    string IdDinamico = simulacion + "," + nivel + "," + nombreData[i];
+
+                    if (conexionDB.Datosdinamicos.Any(data => data.NombreID == IdDinamico))
+                    {
+                        var nuevoaDatoDinamico = conexionDB.Datosdinamicos.Single(esto => esto.NombreID == IdDinamico);
+                        nuevoaDatoDinamico.Datastring = dato[i];
+
+                        //guardar en la base de datos
+                        conexionDB.SaveChanges();
+                    }
+                    else
+                    {
+                        var nuevoaDatoDinamico = conexionDB.Datosdinamicos.Create();
+                        //if para verificar aqui
+                        nuevoaDatoDinamico.NombreID = IdDinamico;
+                        nuevoaDatoDinamico.simulacionID = conexionDB.Simulaciones.Single(s => s.SimNombre == simulacion).SimID;
+                        nuevoaDatoDinamico.Datastring = dato[i];
+
+                        conexionDB.Datosdinamicos.Add(nuevoaDatoDinamico);
+                        //guardar en la base de datos
+                        conexionDB.SaveChanges();
+                    }
+
+                }
+                
+            }
+            catch (Exception)
+            {
+                return false;
+            }
             return true;
         }
         
-        public string[] BuscarDatosD(string[] datos)
+        public string[] BuscarDatosD(string simulacion, string nivel, string[] nombreData)
         {
-            string[] esto = new string[datos.Length];
-            return esto;
+            
+            string[] result = new string[nombreData.Length];
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                string IdDinamico = simulacion + "," + nivel + "," + nombreData[i];
+                try
+                {
+                    if (conexionDB.Datosdinamicos.Any(data => data.NombreID == IdDinamico))
+                    {
+                        var DatoDinamico = conexionDB.Datosdinamicos.Single(d => d.NombreID == IdDinamico);
+                        result[i] = DatoDinamico.Datastring;
+                        
+                        
+                    }
+                    else
+                    {
+                        //no esta
+                        result[i] = "0";
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result[0] = "null";
+                    result[1] = "null";
+                    result[2] = "null";
+                    return result;
+                }
+            }
+
+            return result;
         }
 
         public string[] devolverNotasEst(string idEstudiantes)

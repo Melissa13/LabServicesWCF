@@ -53,10 +53,10 @@ namespace ChemicalLabServiceWCF
         bool verificarProfesor(string idprofesor, string password);
 
         [OperationContract]
-        bool GuardarCambioDinamicos(string[] idprofesor);
+        bool GuardarCambioDinamicos(string simulacion, string[] dato, int dato2, string nivel, string[] nombreData);
 
         [OperationContract]
-        string[] BuscarDatosD(string[] datos);
+        string[] BuscarDatosD(string simulacion, string nivel, string[] nombreData);
 
         [OperationContract]
         string[] devolverNotasEst(string idEstudiantes);

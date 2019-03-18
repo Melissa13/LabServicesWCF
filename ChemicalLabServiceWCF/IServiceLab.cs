@@ -29,7 +29,7 @@ namespace ChemicalLabServiceWCF
         string GenerarReporteEstudiante(string estudianteID);
 
         [OperationContract]
-        bool RegistrarEsudiante(string id, string name,string lastname, int matricula);
+        bool RegistrarEsudiante(string id, string name,string lastname, string matricula);
 
         [OperationContract]
         bool RegistrarProfesor(string id, string name, string lastname);
@@ -47,10 +47,10 @@ namespace ChemicalLabServiceWCF
         bool RegistrarSimulacionEst(string NombreSim, string idEstudiante, string nota);
 
         [OperationContract]
-        bool verificarEstudiante(string idEstudiantes);
+        bool verificarEstudiante(string idEstudiantes, string password);
 
         [OperationContract]
-        bool verificarProfesor(string idprofesor);
+        bool verificarProfesor(string idprofesor, string password);
 
         [OperationContract]
         bool GuardarCambioDinamicos(string[] idprofesor);
@@ -63,6 +63,9 @@ namespace ChemicalLabServiceWCF
 
         [OperationContract]
         bool updateNota(string NombreSim, string idEstudiante, string nota, int id);
+
+        [OperationContract]
+        void datosUser(string idEstudiante);
 
         // TODO: Add your service operations here
     }

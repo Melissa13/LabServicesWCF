@@ -8,6 +8,11 @@ using System.Text;
 using LabServerConnection;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
+using Newtonsoft.Json;
+using System.Web.Script.Serialization;
+using System.Net;
+using System.IO;
+
 
 
 
@@ -125,6 +130,7 @@ namespace ChemicalLabServiceWCF
             }
             catch(Exception ex)
             {
+                data = ex.Message;
                 return data;
             }
            
@@ -133,7 +139,7 @@ namespace ChemicalLabServiceWCF
         }
         
         //registro de datos
-        public bool RegistrarEsudiante(string id, string name, string lastname, int matricula)
+        public bool RegistrarEsudiante(string id, string name, string lastname, string matricula)
         {
             try
             {
@@ -270,17 +276,80 @@ namespace ChemicalLabServiceWCF
             return true;
         }
         
-        public bool verificarEstudiante(string idEstudiantes)
+        public bool verificarEstudiante(string idEstudiantes, string password)
         {
-            Estudiantes estudiante = conexionDB.Estudiantes.Find(idEstudiantes);
+            bool passa = false;
+            /*Ese es un placeholder de prueba*/
+            String pass = password;
+            /*Ese es un placeholder de prueba*/
+            String user = idEstudiantes;
+            /* Este string es constante, no se puede cambiar porque es el
+             * que da acceso a la pva a ver si valida o no el usuario que
+             * se manda*/
+            String service = "moodle_mobile_app";
+
+            string createRequest = string.Format("http://www.deltasoft.com.do/moodle/login/token.php?username=" + user + "&password=" + pass + "&service=" + service);
+
+            //Console.WriteLine(createRequest);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+            req.Method = "GET";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.ContentLength = 0;
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream resStream = resp.GetResponseStream();
+            StreamReader reader = new StreamReader(resStream);
+            string contents = reader.ReadToEnd();
+
+            //Console.WriteLine(contents);
+
+
+
+            // Deserialize
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (contents.Contains("exception"))
+            {
+                // Error
+                MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                passa = false;
+            }
+            else
+            {
+
+                Token root = JsonConvert.DeserializeObject<Token>(contents);
+
+                String tok = root.token;
+
+                if (tok != null)
+                {
+                    //Login
+                    passa = true;
+                    //if true, guarda datos
+                    if (!conexionDB.Estudiantes.Any(Estudiantes => Estudiantes.EstudianteID == idEstudiantes))
+                    {
+                        datosUser(user);
+                    }
+                    
+                }
+                else
+                    //no dejar pasar
+                    passa = false;
+
+                //Puesto para breakpoint y parar la consola para chequear
+                //Console.WriteLine(passa + " lal");
+
+            }
+
+            return passa;
+            /*Estudiantes estudiante = conexionDB.Estudiantes.Find(idEstudiantes);
             if (estudiante == null)
             {
                 return false;
             }
-            else { return true; }
+            else { return true; }*/
         }
         
-        public bool verificarProfesor(string idprofesor)
+        public bool verificarProfesor(string idprofesor, string password)
         {
             Profesores profesor = conexionDB.Profesores.Find(idprofesor);
             if (profesor == null)
@@ -356,6 +425,56 @@ namespace ChemicalLabServiceWCF
                 return false;
             }
             return true;
+        }
+
+        public void datosUser(string idEstudiante)
+        {
+            String token = "5708e1cb28191d8d50401a15e56bea81";
+
+            /*placeholder de prueba para conseguir datos de usuario
+             Si se quieren todos los usuario de moodle se pone: %%*/
+            string email = idEstudiante;
+            string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&moodlewsrestformat=json&&criteria[0][key]=email&criteria[0][value]=" + email, token, "core_user_get_users");
+
+            //Console.WriteLine(createRequest);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+            req.Method = "GET";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.ContentLength = 0;
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream resStream = resp.GetResponseStream();
+            StreamReader reader = new StreamReader(resStream);
+            string contents = reader.ReadToEnd();
+
+
+            // Deserialize
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            if (contents.Contains("exception"))
+            {
+                // Error
+                MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                // RootObject root = JsonConvert.DeserializeObject<List<User>>(contents);
+
+                RootObject root = JsonConvert.DeserializeObject<RootObject>(contents);
+
+                //La lista de todos los usuarios desearalizada de Json osea una lista normal
+                List<User> users = root.users;
+
+                //Probando que sirve
+                if (users[0].email != null) {
+                    //Console.WriteLine(users[0].fullname);
+                    RegistrarEsudiante(idEstudiante, users[0].firstname, users[0].lastname, "no tiene");
+                }
+                    
+
+                //Puesto para breakpoint y parar la consola para chequear
+                //Console.WriteLine("lal");
+
+            }
         }
     }
 }

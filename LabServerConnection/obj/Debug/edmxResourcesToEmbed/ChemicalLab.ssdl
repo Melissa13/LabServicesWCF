@@ -19,7 +19,7 @@
     <Property Name="EstPassword" Type="nvarchar" MaxLength="50" />
     <Property Name="EstTotalNota" Type="nvarchar" MaxLength="50" />
     <Property Name="EstReporte" Type="nvarchar" MaxLength="50" />
-    <Property Name="EstMatricula" Type="int" />
+    <Property Name="EstMatricula" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="EstudiantesGrupos">
     <Key>

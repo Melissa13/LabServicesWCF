@@ -27,7 +27,7 @@ namespace LabServerConnection
         public string EstPassword { get; set; }
         public string EstTotalNota { get; set; }
         public string EstReporte { get; set; }
-        public Nullable<int> EstMatricula { get; set; }
+        public string EstMatricula { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EstudiantesGrupos> EstudiantesGrupos { get; set; }

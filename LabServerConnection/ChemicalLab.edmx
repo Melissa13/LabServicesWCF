@@ -24,7 +24,7 @@
           <Property Name="EstPassword" Type="nvarchar" MaxLength="50" />
           <Property Name="EstTotalNota" Type="nvarchar" MaxLength="50" />
           <Property Name="EstReporte" Type="nvarchar" MaxLength="50" />
-          <Property Name="EstMatricula" Type="int" />
+          <Property Name="EstMatricula" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="EstudiantesGrupos">
           <Key>
@@ -234,7 +234,7 @@
           <Property Name="EstPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EstTotalNota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EstReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EstMatricula" Type="Int32" />
+          <Property Name="EstMatricula" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="EstudiantesGrupos" Relationship="DBCHEMICALLABModel.FK_EstudiantesGrupos_Estudiantes" FromRole="Estudiantes" ToRole="EstudiantesGrupos" />
           <NavigationProperty Name="SimmulacionEstudiante" Relationship="DBCHEMICALLABModel.FK_SimmulacionEstudiante_Estudiantes" FromRole="Estudiantes" ToRole="SimmulacionEstudiante" />
         </EntityType>

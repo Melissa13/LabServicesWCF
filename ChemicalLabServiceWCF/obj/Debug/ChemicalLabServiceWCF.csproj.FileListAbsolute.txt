@@ -29,3 +29,6 @@ C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\Chemic
 C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\CrystalDecisions.ReportAppServer.ObjectFactory.dll
 C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\stdole.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\Newtonsoft.Json.dll
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\Newtonsoft.Json.pdb
+C:\Users\Melisa\Documents\Visual Studio 2017\Projects\LabServerConnection\ChemicalLabServiceWCF\bin\Newtonsoft.Json.xml

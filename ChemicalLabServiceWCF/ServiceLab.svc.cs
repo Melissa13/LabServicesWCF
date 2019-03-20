@@ -541,5 +541,89 @@ namespace ChemicalLabServiceWCF
 
             }
         }
+
+        public string[] LinkDocumentos()
+        {
+            string[] esto = null;
+
+            try
+            {
+                String token = "5708e1cb28191d8d50401a15e56bea81";
+                string descarga;
+                string nameF;
+
+                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&courseid={2}&moodlewsrestformat=json", token, "core_course_get_contents", "10");
+
+                //Console.WriteLine(createRequest);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+                req.Method = "GET";
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = 0;
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream resStream = resp.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string contents = reader.ReadToEnd();
+
+                // Deserialize
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (contents.Contains("exception"))
+                {
+                    // Error
+                    MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    /*LA lista de cursos, porque el JSON dice que un solo curso es una lista
+                     * de cursos de un elemento (MALDITO JSON DEL DIABLO CONIO) y luego me 
+                     di cuenta que los topicos lo tiene asi y mierda entonces para poder
+                     entrar a todos los topicos*/
+                    List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(contents);
+                    foreach (Course root in courses)
+                    {
+                        //Buscando dentro del topico lo que hay
+                        foreach (Module mod in root.Modules)
+                        {
+                            //no todos tienen archivos
+                            if (mod.Contents != null)
+                            {
+                                //Buscando
+                                esto=new string[mod.Contents.Length];
+                                int i = 0;
+                                foreach (Content cont in mod.Contents)
+                                {
+                                    //Tomar el nombre del archivo, que se pasa el formato que esta(pdf o word, etc)
+                                    nameF = cont.Filename;
+                                    //Console.WriteLine(nameF);
+                                    //Link de descarga se completa aquí
+                                    descarga = cont.Fileurl + "&token=" + token;
+                                    //Console.WriteLine(nameF + "link" + descarga);
+                                    esto[i] = nameF + "|" + descarga;
+                                    i++;
+                                    //Bajando todos los archivos ya
+                                    using (var client = new WebClient())
+                                    {
+                                        //Esto es una vaina para poder bajar porque entonces no valida el SSL y da error
+                                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                                        //Lee la funcion de client, tal vez da una idea de lo que hace (?)
+                                        //client.DownloadFile(descarga, nameF);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return esto;
+            }
+
+            return esto;
+        }
+
+
     }
 }

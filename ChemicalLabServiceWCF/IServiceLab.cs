@@ -67,6 +67,9 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         void datosUser(string idEstudiante);
 
+        [OperationContract]
+        string[] LinkDocumentos();
+
         // TODO: Add your service operations here
     }
 

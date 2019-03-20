@@ -38,6 +38,9 @@ namespace ChemicalLabServiceWCF
         bool RegistrarCurso(string name, string idprofesor);
 
         [OperationContract]
+        bool ActualizarCurso(string name, string idprofesor);
+
+        [OperationContract]
         bool RegistrarCursoestudiante(int idCurso, string idEstudiante);
 
         [OperationContract]
@@ -66,6 +69,9 @@ namespace ChemicalLabServiceWCF
 
         [OperationContract]
         void datosUser(string idEstudiante);
+
+        [OperationContract]
+        void datosUserProf(string idProf);
 
         [OperationContract]
         string[] LinkDocumentos();

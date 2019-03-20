@@ -807,5 +807,10 @@ namespace ChemicalLabServiceWCF
 
             return esto;
         }
+        
+        public bool aleluya(string name)
+        {
+            return true;
+        }
     }
 }

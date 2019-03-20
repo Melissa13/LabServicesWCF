@@ -70,6 +70,12 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         string[] LinkDocumentos();
 
+        [OperationContract]
+        bool ActualizarSimulacion(string name, int fallos, int duracion);
+
+        [OperationContract]
+        long[] DatosSimulacion(string name);
+
         // TODO: Add your service operations here
     }
 

@@ -623,7 +623,58 @@ namespace ChemicalLabServiceWCF
 
             return esto;
         }
+        
+        public bool ActualizarSimulacion(string name, int fallos, int duracion)
+        {
+            try
+            {
+                if (conexionDB.Simulaciones.Any(data => data.SimNombre == name))
+                {
+                    var sim = conexionDB.Simulaciones.Single(esto => esto.SimNombre == name);
+                    sim.SimDuracion = duracion;
+                    sim.SimCantFallos = fallos;
+                    
+                    conexionDB.SaveChanges();
+                }
+                else
+                {
+                    var sim = conexionDB.Simulaciones.Create();
+                    sim.SimNombre = name;
+                    sim.SimDuracion = duracion;
+                    sim.SimCantFallos = fallos;
 
+                    conexionDB.Simulaciones.Add(sim);
+                    conexionDB.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
 
+            return true;
+        }
+        
+        public long[] DatosSimulacion(string name)
+        {
+            long[] esto = new long[2] {0,0};
+
+            try
+            {
+                if (conexionDB.Simulaciones.Any(data => data.SimNombre == name))
+                {
+                    var sim = conexionDB.Simulaciones.Single(es => es.SimNombre == name);
+                    esto[0] = sim.SimDuracion ?? 0;
+                    esto[1] = sim.SimCantFallos ?? 0;
+
+                }
+            }
+            catch (Exception)
+            {
+                return esto;
+            }
+
+            return esto;
+        }
     }
 }

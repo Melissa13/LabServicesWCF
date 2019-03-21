@@ -82,6 +82,15 @@ namespace ChemicalLabServiceWCF
         [OperationContract]
         long[] DatosSimulacion(string name);
 
+        [OperationContract]
+        List<string> DarListagruposProfesor(string idProfesor);
+
+        [OperationContract]
+        string GenerarReporteProfesor(string grupoName, string profesorID);
+
+        [OperationContract]
+        List<Estudiantes> DarListaEstudiantesGrupo(string grupoID);
+
         // TODO: Add your service operations here
 
         [OperationContract]

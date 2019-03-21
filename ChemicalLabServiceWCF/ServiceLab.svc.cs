@@ -61,51 +61,24 @@ namespace ChemicalLabServiceWCF
 
         public string GenerarReporteEstudiante(string estudianteID)
         {
+
             string data = "LLega a la plataforma";
             CrystalReport1 crpt = new CrystalReport1();
             crpt.Load(@"C:\temporal\CrystalReport2.rpt");
             Estudiantes estudiante = conexionDB.Estudiantes.Find(estudianteID);
-            List<SimmulacionEstudiante> notas = new List<SimmulacionEstudiante>();
-            notas= conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == estudianteID).ToList();
+            string[] notas = devolverNotasEst(estudianteID);
 
-            string nota1 = "sin datos";
-            string nota2 = "sin datos";
-            string nota3 = "sin datos";
-            string nota4 = "sin datos";
-            string nota5 = "sin datos";
-            foreach (SimmulacionEstudiante a in notas)
-            {
-                if (a.SimulacionId == 1)
-                {
-                    nota1 = a.Nota;
-                }
-                if (a.SimulacionId == 2)
-                {
-                    nota2 = a.Nota;
-                }
-                if (a.SimulacionId == 3)
-                {
-                    nota3 = a.Nota;
-                }
-                if (a.SimulacionId == 4)
-                {
-                    nota4 = a.Nota;
-                }
-                if (a.SimulacionId == 5)
-                {
-                    nota5 = a.Nota;
-                }
-            }
+            
 
             //crpt.SetDataSource(datatablesource);
             crpt.SetParameterValue("nombre", estudiante.EstNombre);
             crpt.SetParameterValue("apellido", estudiante.EstApellido);
-            crpt.SetParameterValue("matricula", estudiante.EstudianteID);
-            crpt.SetParameterValue("nota1", nota1);
-            crpt.SetParameterValue("nota2", nota2);
-            crpt.SetParameterValue("nota3", nota3);
-            crpt.SetParameterValue("nota4", nota4);
-            crpt.SetParameterValue("nota5", nota5);
+            crpt.SetParameterValue("matricula", estudiante.EstMatricula);
+            crpt.SetParameterValue("nota1", notas[1]);
+            crpt.SetParameterValue("nota2", notas[0]);
+            crpt.SetParameterValue("nota3", notas[2]);
+            crpt.SetParameterValue("nota4", notas[3]);
+            crpt.SetParameterValue("nota5", notas[4]);
 
             try
             {
@@ -808,6 +781,139 @@ namespace ChemicalLabServiceWCF
             return esto;
         }
         
+        public List<string> DarListagruposProfesor(string idProfesor)
+        {
+            List<string> results = new List<string>();
+            List<Grupos> groups = new List<Grupos>();
+            string[] esto;
+
+            try
+            {
+                if (conexionDB.Grupos.Any(data => data.GrupoProfesor == idProfesor))
+                {
+                    groups= conexionDB.Grupos.Where(g => g.GrupoProfesor == idProfesor).ToList();
+                    foreach(Grupos a in groups)
+                    {
+                        results.Add(a.GrupoNombre);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return results;
+            }
+
+            return results;
+        }
+        
+        public string GenerarReporteProfesor(string grupoName, string profesorID)
+        {
+            string data = "LLega a la plataforma";
+            CrystalReport2 crpt = new CrystalReport2();
+            crpt.Load(@"C:\temporal\CrystalReport2.rpt");
+            Profesores prof = conexionDB.Profesores.Find(profesorID);
+            Grupos group = conexionDB.Grupos.Single(g => g.GrupoNombre == grupoName);
+            //conseguir todos los estudiantes de un grupo de profesores
+            List<Estudiantes> alumnos = DarListaEstudiantesGrupo(grupoName);
+            //string[] notas = devolverNotasEst(estudianteID);
+
+
+
+            //crpt.SetDataSource(datatablesource);
+            crpt.SetParameterValue("dato1", prof.ProfesorId);
+            crpt.SetParameterValue("dato2", prof.ProfNombre);
+            crpt.SetParameterValue("dato3", prof.ProfApellido);
+            crpt.SetParameterValue("dato4", group.GrupoNombre);
+            crpt.SetParameterValue("dato5", group.GrupoNombre);
+
+            string ayu = "";
+            string ayu2 = "";
+            string ayu3 = "";
+            string ayu4 = "";
+            string ayu5 = "";
+            string ayu6 = "";
+            string ayu7 = "";
+            string ayu8 = "";
+            foreach (Estudiantes a in alumnos)
+            {
+                ayu+=a.EstNombre+ Environment.NewLine;
+                ayu2 += a.EstudianteID + Environment.NewLine;
+                ayu3 += a.EstApellido + Environment.NewLine;
+                string[] notas= devolverNotasEst(a.EstudianteID);
+                ayu4 += notas[1] + Environment.NewLine;
+                ayu5 += notas[0] + Environment.NewLine;
+                ayu6 += notas[2] + Environment.NewLine;
+                ayu7 += notas[3] + Environment.NewLine;
+                ayu8 += notas[4] + Environment.NewLine;
+            }
+            crpt.SetParameterValue("name", ayu);
+            crpt.SetParameterValue("mat", ayu2);
+            crpt.SetParameterValue("last", ayu3);
+            crpt.SetParameterValue("nota1", ayu4);
+            crpt.SetParameterValue("nota2", ayu5);
+            crpt.SetParameterValue("nota3", ayu6);
+            crpt.SetParameterValue("nota4", ayu7);
+            crpt.SetParameterValue("nota5", ayu8);
+
+            try
+            {
+                data = "entra al try";
+                CrystalDecisions.Shared.ExportOptions rptExportOption = crpt.ExportOptions;
+                DiskFileDestinationOptions rptFileDestOption = new DiskFileDestinationOptions();
+                string reportFileName = @"C:\temporal\SampleReport2.pdf";
+                rptFileDestOption.DiskFileName = reportFileName;
+
+                {
+                    rptExportOption.ExportDestinationType = ExportDestinationType.DiskFile;
+                    //if we want to generate the report as PDF, change the ExportFormatType as "ExportFormatType.PortableDocFormat"
+                    //if we want to generate the report as Excel, change the ExportFormatType as "ExportFormatType.Excel"
+                    rptExportOption.ExportFormatType = ExportFormatType.PortableDocFormat;
+                    rptExportOption.ExportDestinationOptions = rptFileDestOption;
+                    PdfRtfWordFormatOptions rptFormatOption = new PdfRtfWordFormatOptions();
+                    rptExportOption.ExportFormatOptions = rptFormatOption;
+                }
+
+                crpt.Export();
+
+            }
+            catch (Exception ex)
+            {
+                data = ex.Message;
+                return data;
+            }
+
+
+            return data;
+        }
+
+        public List<Estudiantes> DarListaEstudiantesGrupo(string grupoID)
+        {
+            List<Estudiantes> results = new List<Estudiantes>();
+            List<EstudiantesGrupos> aux = new List<EstudiantesGrupos>();
+
+            try
+            {
+                Grupos group = conexionDB.Grupos.Single(s => s.GrupoNombre == grupoID);
+                if (conexionDB.EstudiantesGrupos.Any(data => data.GrupoID == group.GrupoID))
+                {
+                    aux = conexionDB.EstudiantesGrupos.Where(g => g.GrupoID == group.GrupoID).ToList();
+                    foreach(EstudiantesGrupos a in aux)
+                    {
+                        Estudiantes ayuda= conexionDB.Estudiantes.Single(s => s.EstudianteID == a.EstudianteID);
+                        results.Add(ayuda);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return results;
+            }
+
+            return results;
+        }
+
         public bool aleluya(string name)
         {
             return true;

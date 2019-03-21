@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBCHEMICALLABModelStoreContainer" CdmEntityContainer="DBCHEMICALLABEntities">
+    <EntitySetMapping Name="Datosdinamicos">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Datosdinamicos">
+        <MappingFragment StoreEntitySet="Datosdinamicos">
+          <ScalarProperty Name="DataInt" ColumnName="DataInt" />
+          <ScalarProperty Name="Datastring" ColumnName="Datastring" />
+          <ScalarProperty Name="simulacionID" ColumnName="simulacionID" />
+          <ScalarProperty Name="NombreID" ColumnName="NombreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Estudiantes">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Estudiantes">
+        <MappingFragment StoreEntitySet="Estudiantes">
+          <ScalarProperty Name="EstMatricula" ColumnName="EstMatricula" />
+          <ScalarProperty Name="EstReporte" ColumnName="EstReporte" />
+          <ScalarProperty Name="EstTotalNota" ColumnName="EstTotalNota" />
+          <ScalarProperty Name="EstPassword" ColumnName="EstPassword" />
+          <ScalarProperty Name="EstApellido" ColumnName="EstApellido" />
+          <ScalarProperty Name="EstNombre" ColumnName="EstNombre" />
+          <ScalarProperty Name="EstudianteID" ColumnName="EstudianteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstudiantesGrupos">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.EstudiantesGrupos">
+        <MappingFragment StoreEntitySet="EstudiantesGrupos">
+          <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+          <ScalarProperty Name="EstudianteID" ColumnName="EstudianteID" />
+          <ScalarProperty Name="EstGrupoID" ColumnName="EstGrupoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grupos">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Grupos">
+        <MappingFragment StoreEntitySet="Grupos">
+          <ScalarProperty Name="GrupoProfesor" ColumnName="GrupoProfesor" />
+          <ScalarProperty Name="NotaPromedio" ColumnName="NotaPromedio" />
+          <ScalarProperty Name="GrupoNombre" ColumnName="GrupoNombre" />
+          <ScalarProperty Name="GrupoID" ColumnName="GrupoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profesores">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Profesores">
+        <MappingFragment StoreEntitySet="Profesores">
+          <ScalarProperty Name="ProfPassword" ColumnName="ProfPassword" />
+          <ScalarProperty Name="ProfApellido" ColumnName="ProfApellido" />
+          <ScalarProperty Name="ProfNombre" ColumnName="ProfNombre" />
+          <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SimmulacionEstudiante">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.SimmulacionEstudiante">
+        <MappingFragment StoreEntitySet="SimmulacionEstudiante">
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="desc" ColumnName="desc" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="EstudianteId" ColumnName="EstudianteId" />
+          <ScalarProperty Name="SimulacionId" ColumnName="SimulacionId" />
+          <ScalarProperty Name="SimEstId" ColumnName="SimEstId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Simulaciones">
+      <EntityTypeMapping TypeName="DBCHEMICALLABModel.Simulaciones">
+        <MappingFragment StoreEntitySet="Simulaciones">
+          <ScalarProperty Name="SimDuracion" ColumnName="SimDuracion" />
+          <ScalarProperty Name="SimCantFallos" ColumnName="SimCantFallos" />
+          <ScalarProperty Name="SimNombre" ColumnName="SimNombre" />
+          <ScalarProperty Name="SimID" ColumnName="SimID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -83,6 +83,9 @@ namespace ChemicalLabServiceWCF
         long[] DatosSimulacion(string name);
 
         // TODO: Add your service operations here
+
+        [OperationContract]
+        bool aleluya(string name);
     }
 
 }

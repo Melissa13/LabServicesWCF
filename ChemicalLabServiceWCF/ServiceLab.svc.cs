@@ -213,7 +213,7 @@ namespace ChemicalLabServiceWCF
             {
                 //conexionDB.Profesores.Find(idEstudiantes).EstPassword;
 
-                var nuevoCurso = conexionDB.Grupos.Single(esto => esto.GrupoProfesor == idprofesor);
+                var nuevoCurso = conexionDB.Grupos.Single(esto => esto.GrupoNombre == name);
                 //if para verificar aqui
                 //nuevoCurso.GrupoNombre = name;
                 nuevoCurso.GrupoProfesor = idprofesor;
@@ -662,7 +662,7 @@ namespace ChemicalLabServiceWCF
                 {
                     //Console.WriteLine(users[0].fullname);
                     RegistrarProfesor(idProf, users[0].firstname, users[0].lastname);
-                    ActualizarCurso("Curso1", idProf);
+                    ActualizarCurso("Quimica101", idProf);
                     //RegistrarCursoestudiante(1, idEstudiante);
                 }
 

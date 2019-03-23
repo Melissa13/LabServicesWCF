@@ -75,7 +75,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ServiceLab.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Course.cs" />
@@ -105,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\ChemicalLabServiceWCF20190320070309 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\chemicallab - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

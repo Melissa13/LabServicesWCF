@@ -74,7 +74,7 @@ namespace ChemicalLabServiceWCF
         void datosUserProf(string idProf);
 
         [OperationContract]
-        string[] LinkDocumentos();
+        List<string> DarLinkDocumentos(string data);
 
         [OperationContract]
         bool ActualizarSimulacion(string name, int fallos, int duracion);

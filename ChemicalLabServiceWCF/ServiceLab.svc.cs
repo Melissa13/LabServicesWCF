@@ -646,9 +646,10 @@ namespace ChemicalLabServiceWCF
             }
         }
 
-        public string[] LinkDocumentos()
+        public List<string> DarLinkDocumentos(string data)
         {
-            string[] esto = null;
+            List<string> resultado = new List<string>();
+            //string[] esto = null;
 
             try
             {
@@ -692,7 +693,7 @@ namespace ChemicalLabServiceWCF
                             if (mod.Contents != null)
                             {
                                 //Buscando
-                                esto=new string[mod.Contents.Length];
+                                //esto=new string[mod.Contents.Length];
                                 int i = 0;
                                 foreach (Content cont in mod.Contents)
                                 {
@@ -702,7 +703,8 @@ namespace ChemicalLabServiceWCF
                                     //Link de descarga se completa aquí
                                     descarga = cont.Fileurl + "&token=" + token;
                                     //Console.WriteLine(nameF + "link" + descarga);
-                                    esto[i] = nameF + "|" + descarga;
+                                    //esto[i] = nameF + "|" + descarga;
+                                    resultado.Add(nameF + "|" + descarga);
                                     i++;
                                     //Bajando todos los archivos ya
                                     using (var client = new WebClient())
@@ -722,12 +724,12 @@ namespace ChemicalLabServiceWCF
             }
             catch (Exception)
             {
-                return esto;
+                return resultado;
             }
 
-            return esto;
+            return resultado;
         }
-        
+
         public bool ActualizarSimulacion(string name, int fallos, int duracion)
         {
             try

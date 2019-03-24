@@ -42,6 +42,11 @@ namespace ChemicalLabServiceWCF
             return conexionDB.Profesores.Find(idprof).ProfIDMoodle ?? 0;
         }
 
+        public string ObtenerGroupName(int idGroup)
+        {
+            return conexionDB.Grupos.Find(idGroup).GrupoNombre;
+        }
+
         public bool RegistrarMatricula(string matricula, string password)
         {
             try
@@ -642,7 +647,12 @@ namespace ChemicalLabServiceWCF
                     //registra o actualiza los cursos en los que esta el estudiante
                     RegistrarEstudentGrupo(idEstudiante);
                     //devolver un string[] de todos los cursos en los que esta
-                    RegistrarCursoestudiante(1, idEstudiante);
+                    List<int> grupos = DarListaEstudentGrupoInt(idEstudiante);
+                    foreach(int g in grupos)
+                    {
+                        RegistrarCursoestudiante(g, idEstudiante);
+                    }
+                    //RegistrarCursoestudiante(1, idEstudiante);
                 }
                     
 
@@ -886,6 +896,58 @@ namespace ChemicalLabServiceWCF
                         Grupos ayu = conexionDB.Grupos.Single(c => c.GrupoID == a.GrupoID);
                         results.Add(ayu.GrupoNombre+"@"+ayu.GrupoID);
                     }
+
+                }
+            }
+            catch (Exception)
+            {
+                return results;
+            }
+
+            return results;
+        }
+
+        public List<int> DarListaEstudentGrupoInt(string EstID)
+        {
+            List<int> results = new List<int>();
+            List<EstudiantesGrupos> groups = new List<EstudiantesGrupos>();
+            string[] esto;
+
+            try
+            {
+                String token = "5708e1cb28191d8d50401a15e56bea81";
+                //El id del estudiante
+                int id = ObtenerPassID(EstID);
+                //Haciendo la llamada para conseguir el curso
+                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&userid={2}&moodlewsrestformat=json", token, "core_enrol_get_users_courses", id.ToString());
+                //Console.WriteLine(createRequest);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+                req.Method = "GET";
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = 0;
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream resStream = resp.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string contents = reader.ReadToEnd();
+
+                // Deserialize
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (contents.Contains("exception"))
+                {
+                    // Error
+                    MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    /*LA lista de cursos en lo que el ususario esta inscrito*/
+                    List<UserCourses> courses = JsonConvert.DeserializeObject<List<UserCourses>>(contents);
+                    //Leyendo la lista
+                    foreach (UserCourses item in courses)
+                    {
+                        results.Add(item.id);
+                    }
+
 
                 }
             }

@@ -28,6 +28,9 @@ namespace ChemicalLabServiceWCF
         int ObtenerPassIDProf(string idprof);
 
         [OperationContract]
+        string ObtenerGroupName(int idGroup);
+
+        [OperationContract]
         //string GetData(int value);
         string GenerarReporteEstudiante(string estudianteID);
 
@@ -93,6 +96,9 @@ namespace ChemicalLabServiceWCF
 
         [OperationContract]
         List<string> DarListaEstudentGrupo(string EstID);
+
+        [OperationContract]
+        List<int> DarListaEstudentGrupoInt(string EstID);
 
         [OperationContract]
         string GenerarReporteProfesor(string grupoName, string profesorID);

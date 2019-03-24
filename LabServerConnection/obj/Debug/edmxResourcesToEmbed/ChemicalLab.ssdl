@@ -16,7 +16,7 @@
     <Property Name="EstudianteID" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="EstNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="EstApellido" Type="nvarchar" MaxLength="50" />
-    <Property Name="EstPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="EstIDMoodle" Type="int" />
     <Property Name="EstTotalNota" Type="nvarchar" MaxLength="50" />
     <Property Name="EstReporte" Type="nvarchar" MaxLength="50" />
     <Property Name="EstMatricula" Type="nvarchar" MaxLength="50" />
@@ -33,7 +33,7 @@
     <Key>
       <PropertyRef Name="GrupoID" />
     </Key>
-    <Property Name="GrupoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GrupoID" Type="int" Nullable="false" />
     <Property Name="GrupoNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="NotaPromedio" Type="nvarchar" MaxLength="50" />
     <Property Name="GrupoProfesor" Type="nvarchar" MaxLength="50" />
@@ -45,7 +45,7 @@
     <Property Name="ProfesorId" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ProfNombre" Type="nvarchar" MaxLength="50" />
     <Property Name="ProfApellido" Type="nvarchar" MaxLength="50" />
-    <Property Name="ProfPassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProfIDMoodle" Type="int" />
   </EntityType>
   <EntityType Name="SimmulacionEstudiante">
     <Key>

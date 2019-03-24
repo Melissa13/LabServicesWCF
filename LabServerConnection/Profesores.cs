@@ -23,7 +23,7 @@ namespace LabServerConnection
         public string ProfesorId { get; set; }
         public string ProfNombre { get; set; }
         public string ProfApellido { get; set; }
-        public string ProfPassword { get; set; }
+        public Nullable<int> ProfIDMoodle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Grupos> Grupos { get; set; }

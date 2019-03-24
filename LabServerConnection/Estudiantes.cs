@@ -24,7 +24,7 @@ namespace LabServerConnection
         public string EstudianteID { get; set; }
         public string EstNombre { get; set; }
         public string EstApellido { get; set; }
-        public string EstPassword { get; set; }
+        public Nullable<int> EstIDMoodle { get; set; }
         public string EstTotalNota { get; set; }
         public string EstReporte { get; set; }
         public string EstMatricula { get; set; }

@@ -31,10 +31,15 @@ namespace ChemicalLabServiceWCF
             return vacio;
         }
 
-        public string ObtenerPass(string idEstudiantes)
+        public int ObtenerPassID(string idEstudiantes)
         {
             
-            return conexionDB.Estudiantes.Find(idEstudiantes).EstPassword;
+            return conexionDB.Estudiantes.Find(idEstudiantes).EstIDMoodle ?? 0;
+        }
+
+        public int ObtenerPassIDProf(string idprof)
+        {
+            return conexionDB.Profesores.Find(idprof).ProfIDMoodle ?? 0;
         }
 
         public bool RegistrarMatricula(string matricula, string password)
@@ -44,7 +49,7 @@ namespace ChemicalLabServiceWCF
                 var nuevoEstudiante = conexionDB.Estudiantes.Create();
                 //if para verificar aqui
                 nuevoEstudiante.EstudianteID = matricula;
-                nuevoEstudiante.EstPassword = password;
+                nuevoEstudiante.EstMatricula = password;
 
 
                 conexionDB.Estudiantes.Add(nuevoEstudiante);
@@ -112,7 +117,7 @@ namespace ChemicalLabServiceWCF
         }
         
         //registro de datos
-        public bool RegistrarEsudiante(string id, string name, string lastname, string matricula)
+        public bool RegistrarEsudiante(string id, string name, string lastname, string matricula,int idMoodle)
         {
             try
             {
@@ -122,6 +127,7 @@ namespace ChemicalLabServiceWCF
                 nuevoEstudiante.EstNombre = name;
                 nuevoEstudiante.EstApellido = lastname;
                 nuevoEstudiante.EstMatricula = matricula;
+                nuevoEstudiante.EstIDMoodle = idMoodle;
 
 
                 conexionDB.Estudiantes.Add(nuevoEstudiante);
@@ -135,7 +141,7 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool RegistrarProfesor(string id, string name, string lastname)
+        public bool RegistrarProfesor(string id, string name, string lastname, int idMoodle)
         {
             try
             {
@@ -144,6 +150,7 @@ namespace ChemicalLabServiceWCF
                 nuevoProf.ProfesorId = id;
                 nuevoProf.ProfNombre = name;
                 nuevoProf.ProfApellido = lastname;
+                nuevoProf.ProfIDMoodle = idMoodle;
 
 
                 conexionDB.Profesores.Add(nuevoProf);
@@ -157,7 +164,7 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool RegistrarCurso(string name, string idprofesor)
+        public bool RegistrarCurso(string name, int id, string idprofesor)
         {
             try
             {
@@ -167,6 +174,7 @@ namespace ChemicalLabServiceWCF
                 //if para verificar aqui
                 nuevoCurso.GrupoNombre = name;
                 nuevoCurso.GrupoProfesor = idprofesor;
+                nuevoCurso.GrupoID = id;
 
 
                 conexionDB.Grupos.Add(nuevoCurso);
@@ -180,19 +188,67 @@ namespace ChemicalLabServiceWCF
             return true;
         }
 
-        public bool ActualizarCurso(string name, string idprofesor)
+        public bool ActualizarCurso(string name, int id, string idprofesor)
         {
             try
             {
-                //conexionDB.Profesores.Find(idEstudiantes).EstPassword;
+                if (conexionDB.Grupos.Any(data => data.GrupoID == id))
+                {
 
-                var nuevoCurso = conexionDB.Grupos.Single(esto => esto.GrupoNombre == name);
-                //if para verificar aqui
-                //nuevoCurso.GrupoNombre = name;
-                nuevoCurso.GrupoProfesor = idprofesor;
+                    var nuevoCurso = conexionDB.Grupos.Single(esto => esto.GrupoID == id);
+                    nuevoCurso.GrupoNombre = name;
+                    nuevoCurso.GrupoProfesor = idprofesor;
+
+                    //guardar en la base de datos
+                    conexionDB.SaveChanges();
+                }
+                else
+                {
+                    var nuevoCurso = conexionDB.Grupos.Create();
+                    //if para verificar aqui
+                    nuevoCurso.GrupoNombre = name;
+                    nuevoCurso.GrupoProfesor = idprofesor;
+                    nuevoCurso.GrupoID = id;
+
+
+                    conexionDB.Grupos.Add(nuevoCurso);
+                    //guardar en la base de datos
+                    conexionDB.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CambiosCursoEstudiante(string name, int id)
+        {
+            try
+            {
+                if (conexionDB.Grupos.Any(data => data.GrupoID == id))
+                {
+
+                    var nuevoCurso = conexionDB.Grupos.Single(esto => esto.GrupoID == id);
+                    nuevoCurso.GrupoNombre = name;
+
+                    //guardar en la base de datos
+                    conexionDB.SaveChanges();
+                }
+                else
+                {
+                    var nuevoCurso = conexionDB.Grupos.Create();
+                    //if para verificar aqui
+                    nuevoCurso.GrupoNombre = name;
+                    nuevoCurso.GrupoID = id;
+
+
+                    conexionDB.Grupos.Add(nuevoCurso);
+                    //guardar en la base de datos
+                    conexionDB.SaveChanges();
+                }
                 
-                //guardar en la base de datos
-                conexionDB.SaveChanges();
             }
             catch (Exception)
             {
@@ -582,7 +638,10 @@ namespace ChemicalLabServiceWCF
                 //Probando que sirve
                 if (users[0].email != null) {
                     //Console.WriteLine(users[0].fullname);
-                    RegistrarEsudiante(idEstudiante, users[0].firstname, users[0].lastname, "no tiene");
+                    RegistrarEsudiante(idEstudiante, users[0].firstname, users[0].lastname, "no tiene", users[0].id);
+                    //registra o actualiza los cursos en los que esta el estudiante
+                    RegistrarEstudentGrupo(idEstudiante);
+                    //devolver un string[] de todos los cursos en los que esta
                     RegistrarCursoestudiante(1, idEstudiante);
                 }
                     
@@ -634,8 +693,10 @@ namespace ChemicalLabServiceWCF
                 if (users[0].email != null)
                 {
                     //Console.WriteLine(users[0].fullname);
-                    RegistrarProfesor(idProf, users[0].firstname, users[0].lastname);
-                    ActualizarCurso("Quimica101", idProf);
+                    RegistrarProfesor(idProf, users[0].firstname, users[0].lastname,users[0].id);
+                    RegistrarProfesorGrupo(idProf);
+                    //ActualizarCurso("Quimica101", idProf);
+
                     //RegistrarCursoestudiante(1, idEstudiante);
                 }
 
@@ -650,14 +711,14 @@ namespace ChemicalLabServiceWCF
         {
             List<string> resultado = new List<string>();
             //string[] esto = null;
-
+            //data es el codigo del curso
             try
             {
                 String token = "5708e1cb28191d8d50401a15e56bea81";
                 string descarga;
                 string nameF;
 
-                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&courseid={2}&moodlewsrestformat=json", token, "core_course_get_contents", "10");
+                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&courseid={2}&moodlewsrestformat=json", token, "core_course_get_contents", data);
 
                 //Console.WriteLine(createRequest);
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
@@ -808,7 +869,34 @@ namespace ChemicalLabServiceWCF
 
             return results;
         }
-        
+
+        public List<string> DarListaEstudentGrupo(string EstID)
+        {
+            List<string> results = new List<string>();
+            List<EstudiantesGrupos> groups = new List<EstudiantesGrupos>();
+            string[] esto;
+
+            try
+            {
+                if (conexionDB.EstudiantesGrupos.Any(data => data.EstudianteID == EstID))
+                {
+                    groups = conexionDB.EstudiantesGrupos.Where(g => g.EstudianteID == EstID).ToList();
+                    foreach (EstudiantesGrupos a in groups)
+                    {
+                        Grupos ayu = conexionDB.Grupos.Single(c => c.GrupoID == a.GrupoID);
+                        results.Add(ayu.GrupoNombre+"@"+ayu.GrupoID);
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return results;
+            }
+
+            return results;
+        }
+
         public string GenerarReporteProfesor(string grupoName, string profesorID)
         {
             string data = "LLega a la plataforma";
@@ -914,6 +1002,116 @@ namespace ChemicalLabServiceWCF
             }
 
             return results;
+        }
+
+        public bool RegistrarProfesorGrupo(string ProfID)
+        {
+            try
+            {
+                String token = "5708e1cb28191d8d50401a15e56bea81";
+                //El id del estudiante
+                int id = ObtenerPassIDProf(ProfID);
+                //Haciendo la llamada para conseguir el curso
+                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&userid={2}&moodlewsrestformat=json", token, "core_enrol_get_users_courses", id.ToString());
+                //Console.WriteLine(createRequest);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+                req.Method = "GET";
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = 0;
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream resStream = resp.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string contents = reader.ReadToEnd();
+
+                // Deserialize
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (contents.Contains("exception"))
+                {
+                    // Error
+                    MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    /*LA lista de cursos en lo que el ususario esta inscrito*/
+                    List<UserCourses> courses = JsonConvert.DeserializeObject<List<UserCourses>>(contents);
+                    //Leyendo la lista
+                    foreach (UserCourses item in courses)
+                    {
+                        ActualizarCurso(item.shortname, item.id,ProfID);
+                        //id del curso
+                        //Console.WriteLine(item.id);
+                        //Nombre corto
+                        //Console.WriteLine(item.shortname);
+                        //Nombre abreviado
+                        //Console.WriteLine(item.fullname);
+                    }
+
+                    Console.WriteLine("lala");
+
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool RegistrarEstudentGrupo(string EstID)
+        {
+            try
+            {
+                String token = "5708e1cb28191d8d50401a15e56bea81";
+                //El id del estudiante
+                int id = ObtenerPassID(EstID);
+                //Haciendo la llamada para conseguir el curso
+                string createRequest = string.Format("http://www.deltasoft.com.do/moodle/webservice/rest/server.php?wstoken={0}&wsfunction={1}&userid={2}&moodlewsrestformat=json", token, "core_enrol_get_users_courses", id.ToString());
+                //Console.WriteLine(createRequest);
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(createRequest);
+                req.Method = "GET";
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.ContentLength = 0;
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream resStream = resp.GetResponseStream();
+                StreamReader reader = new StreamReader(resStream);
+                string contents = reader.ReadToEnd();
+
+                // Deserialize
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (contents.Contains("exception"))
+                {
+                    // Error
+                    MoodleException moodleError = serializer.Deserialize<MoodleException>(contents);
+                    //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else
+                {
+                    /*LA lista de cursos en lo que el ususario esta inscrito*/
+                    List<UserCourses> courses = JsonConvert.DeserializeObject<List<UserCourses>>(contents);
+                    //Leyendo la lista
+                    foreach (UserCourses item in courses)
+                    {
+                        CambiosCursoEstudiante(item.shortname, item.id);
+                        //id del curso
+                        //Console.WriteLine(item.id);
+                        //Nombre corto
+                        //Console.WriteLine(item.shortname);
+                        //Nombre abreviado
+                        //Console.WriteLine(item.fullname);
+                    }
+                    
+
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool aleluya(string name)

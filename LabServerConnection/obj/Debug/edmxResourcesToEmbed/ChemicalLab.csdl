@@ -50,7 +50,7 @@
     <Property Name="EstudianteID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="EstPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EstIDMoodle" Type="Int32" />
     <Property Name="EstTotalNota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="EstMatricula" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -71,7 +71,7 @@
     <Key>
       <PropertyRef Name="GrupoID" />
     </Key>
-    <Property Name="GrupoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GrupoID" Type="Int32" Nullable="false" />
     <Property Name="GrupoNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NotaPromedio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GrupoProfesor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -85,7 +85,7 @@
     <Property Name="ProfesorId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ProfApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ProfPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProfIDMoodle" Type="Int32" />
     <NavigationProperty Name="Grupos" Relationship="DBCHEMICALLABModel.FK_Grupos_Profesores" FromRole="Profesores" ToRole="Grupos" />
   </EntityType>
   <EntityType Name="SimmulacionEstudiante">

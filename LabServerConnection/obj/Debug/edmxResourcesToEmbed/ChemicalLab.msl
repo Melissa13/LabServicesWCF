@@ -17,7 +17,7 @@
           <ScalarProperty Name="EstMatricula" ColumnName="EstMatricula" />
           <ScalarProperty Name="EstReporte" ColumnName="EstReporte" />
           <ScalarProperty Name="EstTotalNota" ColumnName="EstTotalNota" />
-          <ScalarProperty Name="EstPassword" ColumnName="EstPassword" />
+          <ScalarProperty Name="EstIDMoodle" ColumnName="EstIDMoodle" />
           <ScalarProperty Name="EstApellido" ColumnName="EstApellido" />
           <ScalarProperty Name="EstNombre" ColumnName="EstNombre" />
           <ScalarProperty Name="EstudianteID" ColumnName="EstudianteID" />
@@ -46,7 +46,7 @@
     <EntitySetMapping Name="Profesores">
       <EntityTypeMapping TypeName="DBCHEMICALLABModel.Profesores">
         <MappingFragment StoreEntitySet="Profesores">
-          <ScalarProperty Name="ProfPassword" ColumnName="ProfPassword" />
+          <ScalarProperty Name="ProfIDMoodle" ColumnName="ProfIDMoodle" />
           <ScalarProperty Name="ProfApellido" ColumnName="ProfApellido" />
           <ScalarProperty Name="ProfNombre" ColumnName="ProfNombre" />
           <ScalarProperty Name="ProfesorId" ColumnName="ProfesorId" />

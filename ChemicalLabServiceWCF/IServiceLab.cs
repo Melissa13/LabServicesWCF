@@ -22,23 +22,29 @@ namespace ChemicalLabServiceWCF
         List<Estudiantes> ObtenerEstudiantes(string idEstudiantes);
 
         [OperationContract]
-        string ObtenerPass(string idEstudiantes);
+        int ObtenerPassID(string idEstudiantes);
+
+        [OperationContract]
+        int ObtenerPassIDProf(string idprof);
 
         [OperationContract]
         //string GetData(int value);
         string GenerarReporteEstudiante(string estudianteID);
 
         [OperationContract]
-        bool RegistrarEsudiante(string id, string name,string lastname, string matricula);
+        bool RegistrarEsudiante(string id, string name,string lastname, string matricula, int idMoodle);
 
         [OperationContract]
-        bool RegistrarProfesor(string id, string name, string lastname);
+        bool RegistrarProfesor(string id, string name, string lastname, int idMoodle);
 
         [OperationContract]
-        bool RegistrarCurso(string name, string idprofesor);
+        bool RegistrarCurso(string name, int id, string idprofesor);
 
         [OperationContract]
-        bool ActualizarCurso(string name, string idprofesor);
+        bool ActualizarCurso(string name, int id, string idprofesor);
+
+        [OperationContract]
+        bool CambiosCursoEstudiante(string name, int id);
 
         [OperationContract]
         bool RegistrarCursoestudiante(int idCurso, string idEstudiante);
@@ -86,10 +92,19 @@ namespace ChemicalLabServiceWCF
         List<string> DarListagruposProfesor(string idProfesor);
 
         [OperationContract]
+        List<string> DarListaEstudentGrupo(string EstID);
+
+        [OperationContract]
         string GenerarReporteProfesor(string grupoName, string profesorID);
 
         [OperationContract]
         List<Estudiantes> DarListaEstudiantesGrupo(string grupoID);
+
+        [OperationContract]
+        bool RegistrarProfesorGrupo(string ProfID);
+
+        [OperationContract]
+        bool RegistrarEstudentGrupo(string EstID);
 
         // TODO: Add your service operations here
 

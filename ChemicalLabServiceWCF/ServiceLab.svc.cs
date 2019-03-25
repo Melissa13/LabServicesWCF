@@ -580,6 +580,39 @@ namespace ChemicalLabServiceWCF
             return esto;
         }
 
+        public string[] devolverNotasEstPorFecha(string idEstudiantes, DateTime date)
+        {
+            string[] simulaciones = new string[5] { "Nomenclatura", "Balanceo", "Estequiometria", "Tabla Periodica", "Conversion" };
+            string[] esto = new string[5];
+            for (int i = 0; i < esto.Length; i++)
+            {
+                esto[i] = "Null";
+            }
+
+            try
+            {
+                for (int i = 0; i < esto.Length; i++)
+                {
+                    List<SimmulacionEstudiante> notas = new List<SimmulacionEstudiante>();
+                    string temp = simulaciones[i];
+                    Simulaciones sim = conexionDB.Simulaciones.Single(s => s.SimNombre == temp);
+
+                    if (conexionDB.SimmulacionEstudiante.Any(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID))
+                    {
+                        notas = conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID && Estudiantes.fecha<date).ToList();
+                        esto[i] = notas.OrderBy(n => n.fecha).First().Nota;
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                return esto;
+            }
+
+            return esto;
+        }
+
         public bool updateNota(string NombreSim, string idEstudiante, string nota, int id)
         {
             try
@@ -700,7 +733,7 @@ namespace ChemicalLabServiceWCF
                 List<User> users = root.users;
 
                 //Probando que sirve
-                if (users[0].email != null)
+                if (users[0].id != null)
                 {
                     //Console.WriteLine(users[0].fullname);
                     RegistrarProfesor(idProf, users[0].firstname, users[0].lastname,users[0].id);
@@ -867,7 +900,7 @@ namespace ChemicalLabServiceWCF
                     groups= conexionDB.Grupos.Where(g => g.GrupoProfesor == idProfesor).ToList();
                     foreach(Grupos a in groups)
                     {
-                        results.Add(a.GrupoNombre);
+                        results.Add(a.GrupoNombre+"@"+a.GrupoID);
                     }
 
                 }
@@ -959,15 +992,15 @@ namespace ChemicalLabServiceWCF
             return results;
         }
 
-        public string GenerarReporteProfesor(string grupoName, string profesorID)
+        public string GenerarReporteProfesor(int grupoId, string profesorID, DateTime date)
         {
             string data = "LLega a la plataforma";
             CrystalReport2 crpt = new CrystalReport2();
             crpt.Load(@"C:\temporal\CrystalReport2.rpt");
             Profesores prof = conexionDB.Profesores.Find(profesorID);
-            Grupos group = conexionDB.Grupos.Single(g => g.GrupoNombre == grupoName);
+            Grupos group = conexionDB.Grupos.Single(g => g.GrupoID == grupoId);
             //conseguir todos los estudiantes de un grupo de profesores
-            List<Estudiantes> alumnos = DarListaEstudiantesGrupo(grupoName);
+            List<Estudiantes> alumnos = DarListaEstudiantesGrupo(grupoId);
             //string[] notas = devolverNotasEst(estudianteID);
 
 
@@ -992,7 +1025,7 @@ namespace ChemicalLabServiceWCF
                 ayu+=a.EstNombre+ Environment.NewLine;
                 ayu2 += a.EstudianteID + Environment.NewLine;
                 ayu3 += a.EstApellido + Environment.NewLine;
-                string[] notas= devolverNotasEst(a.EstudianteID);
+                string[] notas= devolverNotasEstPorFecha(a.EstudianteID,date);
                 ayu4 += notas[1] + Environment.NewLine;
                 ayu5 += notas[0] + Environment.NewLine;
                 ayu6 += notas[2] + Environment.NewLine;
@@ -1039,14 +1072,14 @@ namespace ChemicalLabServiceWCF
             return data;
         }
 
-        public List<Estudiantes> DarListaEstudiantesGrupo(string grupoID)
+        public List<Estudiantes> DarListaEstudiantesGrupo(int grupoID)
         {
             List<Estudiantes> results = new List<Estudiantes>();
             List<EstudiantesGrupos> aux = new List<EstudiantesGrupos>();
 
             try
             {
-                Grupos group = conexionDB.Grupos.Single(s => s.GrupoNombre == grupoID);
+                Grupos group = conexionDB.Grupos.Single(s => s.GrupoID == grupoID);
                 if (conexionDB.EstudiantesGrupos.Any(data => data.GrupoID == group.GrupoID))
                 {
                     aux = conexionDB.EstudiantesGrupos.Where(g => g.GrupoID == group.GrupoID).ToList();

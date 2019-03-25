@@ -74,6 +74,9 @@ namespace ChemicalLabServiceWCF
         string[] devolverNotasEst(string idEstudiantes);
 
         [OperationContract]
+        string[] devolverNotasEstPorFecha(string idEstudiantes, DateTime date);
+
+        [OperationContract]
         bool updateNota(string NombreSim, string idEstudiante, string nota, int id);
 
         [OperationContract]
@@ -101,16 +104,18 @@ namespace ChemicalLabServiceWCF
         List<int> DarListaEstudentGrupoInt(string EstID);
 
         [OperationContract]
-        string GenerarReporteProfesor(string grupoName, string profesorID);
+        string GenerarReporteProfesor(int grupoId, string profesorID, DateTime date);
 
         [OperationContract]
-        List<Estudiantes> DarListaEstudiantesGrupo(string grupoID);
+        List<Estudiantes> DarListaEstudiantesGrupo(int grupoID);
 
         [OperationContract]
         bool RegistrarProfesorGrupo(string ProfID);
 
         [OperationContract]
         bool RegistrarEstudentGrupo(string EstID);
+
+
 
         // TODO: Add your service operations here
 

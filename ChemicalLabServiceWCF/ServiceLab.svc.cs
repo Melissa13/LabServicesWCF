@@ -567,7 +567,7 @@ namespace ChemicalLabServiceWCF
                     if (conexionDB.SimmulacionEstudiante.Any(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID))
                     {
                         notas = conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID).ToList();
-                        esto[i] = notas.OrderBy(n => n.fecha).First().Nota;
+                        esto[i] = notas.OrderByDescending(n => n.fecha).First().Nota;
                     }
 
                 }
@@ -600,7 +600,7 @@ namespace ChemicalLabServiceWCF
                     if (conexionDB.SimmulacionEstudiante.Any(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID))
                     {
                         notas = conexionDB.SimmulacionEstudiante.Where(Estudiantes => Estudiantes.EstudianteId == idEstudiantes && Estudiantes.SimulacionId == sim.SimID && Estudiantes.fecha<date).ToList();
-                        esto[i] = notas.OrderBy(n => n.fecha).First().Nota;
+                        esto[i] = notas.OrderByDescending(n => n.fecha).First().Nota;
                     }
 
                 }
